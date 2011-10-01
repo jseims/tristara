@@ -1,0 +1,7 @@
+# crawl new images on reddit every hour
+# (place in /etc/cron.hourly)
+
+export PYTHONPATH=/data/tristara/config
+/data/tristara/scripts/get_reddit_images.py >> /var/log/tristara 2>&1
+ 
+

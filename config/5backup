@@ -1,0 +1,7 @@
+# crawl new images on reddit every hour
+# (place in /etc/cron.daily)
+
+export PYTHONPATH=/data/tristara/config
+/data/tristara/scripts/backup_db.py >> /var/log/tristara 2>&1
+ 
+
