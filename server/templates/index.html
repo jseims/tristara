@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="css/style.css" media="all" />
+	<!--[if IE 7]>
+	<link rel="stylesheet" type="text/css" href="css/style-ie.css" />
+	<![endif]-->
+<title>Tristara -- Joshua Seims's Personal Site</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.js"></script>
+
+<!-- Begin DropDown -->
+      
+<script type="text/javascript">
+$(function(){
+   $("ul.dropdown li").hover(function(){
+        $(this).addClass("hover");
+        $('ul:first',this).css('visibility', 'visible');
+    
+    }, function(){
+   $(this).removeClass("hover");
+   $('ul:first',this).css('visibility', 'hidden');
+});
+$("ul.dropdown li ul li:has(ul)").find("a:first").append(" &raquo; ");
+});
+</script>
+
+</head>
+
+<body>
+
+<div id="header">
+<div id="logo-text">Cool stuff &#8898; Joshua Seims</div>
+</div>
+
+<ul class="dropdown"><!-- menu -->
+
+<li><a href="">Home</a></li>
+
+<li><a href="projects">Projects</a>
+<ul class="sub_menu">
+    <li><a href="fun_pics">Reddit Image Browser</a></li>
+    <li><a href="video_wall">Video Wall</a>
+</ul>
+</li>
+
+<li><a href="about">About</a></li>
+
+<li><a href="blog">Blog</a></li>
+
+<li><a href="contact">Contact</a></li>
+
+</ul><!-- close menu -->
+
+
+
+
+<div id="gallery"><!-- gallery -->
+
+<ul>
+  <li><a href="gallery.html"><img src="images/josh2.png" alt="demo" /></a></li>
+</ul>
+
+</div><!-- close gallery -->
+ 
+ 
+<div id="intro">
+<p><span>Welcome to my site.</span>
+<p>My name is Joshua Seims, and I live in San Francisco.
+<p>I'm a serial entrepreneur, and occasional angel investor. I particularly enjoy advising early stage startups.
+<p>I love hacking and building cool products.
+<p>Trivia: I was born in Hong Kong, I own a ridiculously  large hot tub, and I know the secret obscene Latin verse in "Ten Thousand Men of Harvard".
+</div>
+
+<div style="clear:both;"></div>
+
+<div id="box_left">
+<h3>Projects</h3>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent cursus dolor hendrerit lacus egestas sollicitudin. Nullam pharetra commodo sem, sit amet mattis metus vestibulum at. Suspendisse in tellus metus. Ut lobortis gravida magna, et mollis nisl luctus et. Ut quis neque eros</p>
+<a href="page.html"><img src="images/more.png" class="more" width="68" height="24" alt="more" /></a>
+</div>
+
+<div id="box_right">
+<h3>Recent Posts</h3>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent cursus dolor hendrerit lacus egestas sollicitudin. Nullam pharetra commodo sem, sit amet mattis metus vestibulum at. Suspendisse in tellus metus. Ut lobortis gravida magna, et mollis nisl luctus et. Ut quis neque eros</p>
+<a href="page.html"><img src="images/more.png" class="more" width="68" height="24" alt="more" /></a>
+</div>
+
+<div id="box_middle">
+<h3>Work with me</h3>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent cursus dolor hendrerit lacus egestas sollicitudin. Nullam pharetra commodo sem, sit amet mattis metus vestibulum at. Suspendisse in tellus metus. Ut lobortis gravida magna, et mollis nisl luctus et. Ut quis neque eros</p>
+<a href="page.html"><img src="images/more.png" class="more" width="68" height="24" alt="more" /></a>
+</div>
+
+
+</body>
+</html>
