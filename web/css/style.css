@@ -119,18 +119,18 @@ body {width: 960px; margin: auto; font-family: Georgia, "Times New Roman", Times
 #intro {
 	border: 1px solid #FFF; 
 	padding: 20px;
-	font-size: 1.4em; 
 	line-height: 1.6em; 
 	margin-bottom: 44px;
     width: 587px;
     float: right;
 	outline:1px solid #dcdcdc;
-	background: #eaeaea
+	background: #eaeaea;
+    height: 258px;
 }
 
-#intro span {font-weight: 700}
+#intro span {font-weight: bold; font-size: 1.7em;}
 
-#intro p {padding-top: 4px; padding-bottom: 4px}
+#intro p {padding-top: 10px; padding-bottom: 10px;}
 
 #box_left {width: 300px; float: left; margin-bottom: 44px; text-align: justify}
 #box_right {width: 300px; float: right; margin-bottom: 44px; text-align: justify}

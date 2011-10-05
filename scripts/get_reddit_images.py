@@ -37,7 +37,7 @@ def main():
     start_num = db.query_value("""SELECT count(*) FROM reddit""")
     print "%s existing links, starting crawl" % (start_num)
     after = ""
-    image_urlbase = "http://www.reddit.com/search.json?q=site%3A{i.imgur.com}&sort=new&restrict_sr=on&limit=100&after="
+    image_urlbase = "http://www.reddit.com/search.json?q=site%3A{i.imgur.com}&sort=new&restrict_sr=off&limit=100&after="
     while after != None:
         after, links = crawl_page(image_urlbase, after)
         for link in links:
