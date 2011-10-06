@@ -1,61 +1,6 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link rel="stylesheet" type="text/css" href="css/style.css" media="all" />
-	<!--[if IE 7]>
-	<link rel="stylesheet" type="text/css" href="css/style-ie.css" />
-	<![endif]-->
-<title>Tristara -- Joshua Seims's Personal Site</title>
+{% extends "base.html" %}
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.js"></script>
-
-<!-- Begin DropDown -->
-      
-<script type="text/javascript">
-$(function(){
-   $("ul.dropdown li").hover(function(){
-        $(this).addClass("hover");
-        $('ul:first',this).css('visibility', 'visible');
-    
-    }, function(){
-   $(this).removeClass("hover");
-   $('ul:first',this).css('visibility', 'hidden');
-});
-$("ul.dropdown li ul li:has(ul)").find("a:first").append(" &raquo; ");
-});
-</script>
-
-</head>
-
-<body>
-
-<div id="header">
-<div id="logo-text">Cool stuff &#8898; Joshua Seims</div>
-</div>
-
-<ul class="dropdown"><!-- menu -->
-
-<li><a href="">Home</a></li>
-
-<li><a href="projects">Projects</a>
-<ul class="sub_menu">
-    <li><a href="fun_pics">Reddit Image Browser</a></li>
-    <li><a href="video_wall">Video Wall</a>
-</ul>
-</li>
-
-<li><a href="about">About</a></li>
-
-<li><a href="blog">Blog</a></li>
-
-<li><a href="contact">Contact</a></li>
-
-</ul><!-- close menu -->
-
-
-
-
+{% block content %}    
 <div id="gallery"><!-- gallery -->
 
 <ul>
@@ -77,22 +22,49 @@ $("ul.dropdown li ul li:has(ul)").find("a:first").append(" &raquo; ");
 
 <div id="box_left">
 <h3>Projects</h3>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent cursus dolor hendrerit lacus egestas sollicitudin. Nullam pharetra commodo sem, sit amet mattis metus vestibulum at. Suspendisse in tellus metus. Ut lobortis gravida magna, et mollis nisl luctus et. Ut quis neque eros</p>
+
+Here's a small sampling of some things I've done:
+
+<ul class="normal_list">
+    <li><a href="">I'm Almost There</a>.  An iPhone app that shows people where you are on a map as you're running late (or, conversely, get them to show you where they are as you're waiting for them).</li>
+    <li><a href="">Reddit Image Viewer</a>.  Easily view pictures added to Reddit as a nearly infinite stream.  Also, share this stream with your friends.</li>
+    <li><a href="">Video Wall</a>.  Get YouTube's top 1000 videos of all time blasted into your eyeballs.</li>
+</ul>    
+</p>
+<p>
 <a href="page.html"><img src="images/more.png" class="more" width="68" height="24" alt="more" /></a>
 </div>
 
 <div id="box_right">
 <h3>Recent Posts</h3>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent cursus dolor hendrerit lacus egestas sollicitudin. Nullam pharetra commodo sem, sit amet mattis metus vestibulum at. Suspendisse in tellus metus. Ut lobortis gravida magna, et mollis nisl luctus et. Ut quis neque eros</p>
+
+<ul class="normal_list">
+    <li><a href="http://www.quora.com/How-do-you-prevent-scope-creep-in-agile-projects-when-usability-testing/answer/Joshua-Seims">How do you prevent scope creep in agile projects when usability testing?</a></li>
+    <li><a href="http://www.quora.com/When-does-it-stop-being-inappropriate-to-compete-against-a-friend-with-a-startup-if-the-friend-ignores-suggestions-that-would-make-for-a-better-product/answer/Joshua-Seims">When does it stop being inappropriate to compete against a friend with a startup, if the friend ignores suggestions that would make for a better product?</a></li>
+    <li><a href="http://www.quora.com/Life-Lessons/What-are-the-most-important-things-you-should-teach-a-kid/answer/Joshua-Seims">What are the most important things you should teach a kid?</a></li>
+    <li><a href="http://www.quora.com/What-are-some-examples-of-being-raised-as-a-third-culture-kid-What-are-the-benefits-and-disadvantages/answer/Joshua-Seims">
+What are some examples of being raised as a third-culture kid? What are the benefits and disadvantages?</a></li>
+    <li><a href="http://www.quora.com/If-a-company-is-sold-for-100-million-how-much-would-the-CEO-founder-s-be-expected-to-make/answer/Joshua-Seims">If a company is sold for $100 million, how much would the CEO/founder(s) be expected to make?</a></li>
+</ul>    
+</p>
+<p>
 <a href="page.html"><img src="images/more.png" class="more" width="68" height="24" alt="more" /></a>
 </div>
 
 <div id="box_middle">
-<h3>Work with me</h3>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent cursus dolor hendrerit lacus egestas sollicitudin. Nullam pharetra commodo sem, sit amet mattis metus vestibulum at. Suspendisse in tellus metus. Ut lobortis gravida magna, et mollis nisl luctus et. Ut quis neque eros</p>
+<h3>Work</h3>
+I like getting involved with new projects, so feel free to be in touch if you need:
+
+<ul class="normal_list">
+<li><b>A Technical Co-Founder</b>.  Founding a company can be very interesting and lucrative, but it's a super big deal, so we'd have to get to know each other really well.</li>
+<li><b>An Advisor</b>.  I've bootstapped a company, and grown it organically to over $20 million in annual revenue.  I've made almost every possible mistake along the way, and would be happy to save you the same headaches.</li>
+<li><b>An Investor</b>.  I make selective investments, based on how much value I can provide beyond money.</li>
+<li><b>A Consultant</b>.  More for fun than money.  Let me know if you have a particularly interesting product you'd like built.</li>
+</ul>
+</p>
+
+<p>
 <a href="page.html"><img src="images/more.png" class="more" width="68" height="24" alt="more" /></a>
 </div>
+{% endblock %}
 
-
-</body>
-</html>

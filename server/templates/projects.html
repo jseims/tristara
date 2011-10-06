@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}    
+<div id="content"><!-- content -->
+
+<h1>Projects</h1> 
+
+<p>
+Here's a small sampling of some things I've done:
+</p>
+
+<div id="project">
+
+  <div id="project_img">
+    <img src="images/almost_there.png">
+  </div>
+  
+  <div id="project_text">
+    <p><span>I'm Almost There</span>
+    <p>Lucas Ryan and I wrote this iPhone app last year.
+    <p>The app sends a text message that links to a web page showing people where you are on a map.
+    <p><a href="page.html"><img src="images/more.png" class="more" width="68" height="24" alt="more" /></a>
+  </div>
+
+</div>
+
+<div id="project">
+
+  <div id="project_img">
+    <img src="images/reddit-alien.jpg" style="border:1px solid #dcdcdc;">
+  </div>
+  
+  <div id="project_text">
+    <p><span>Reddit Image Viewer</span>
+    <p>Reddit gets thousands of images posted every day.
+    <p>This app lets you  view pictures these pictures in a way that's fun, easy, and social.
+    <p><a href="page.html"><img src="images/more.png" class="more" width="68" height="24" alt="more" /></a>
+  </div>
+
+</div>
+                  
+</div><!-- end content -->
+
+{% include "sidebar.html" %}
+
+{% endblock %}

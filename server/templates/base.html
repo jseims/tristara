@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="css/style.css" media="all" />
+	<!--[if IE 7]>
+	<link rel="stylesheet" type="text/css" href="css/style-ie.css" />
+	<![endif]-->
+<title>
+    {% block title %}Tristara -- Joshua Seims's Personal Site{% endblock %}
+</title>
+
+{% block header %}{% endblock %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.js"></script>
+{% block js_includes %}{% endblock %}
+
+<!-- Begin DropDown -->
+      
+<script type="text/javascript">
+$(function(){
+   $("ul.dropdown li").hover(function(){
+        $(this).addClass("hover");
+        $('ul:first',this).css('visibility', 'visible');
+    
+    }, function(){
+   $(this).removeClass("hover");
+   $('ul:first',this).css('visibility', 'hidden');
+});
+$("ul.dropdown li ul li:has(ul)").find("a:first").append(" &raquo; ");
+});
+</script>
+
+</head>
+
+<body>
+
+<div id="header">
+<div id="logo-img"><a href="/"><img src="images/logo.png"></a></div>
+<div id="logo-text">Cool stuff &#8898; Joshua Seims</div>
+</div>
+
+<ul class="dropdown"><!-- menu -->
+
+<li><a href="/">Home</a></li>
+
+<li><a href="projects">Projects</a>
+<ul class="sub_menu">
+    <li><a href="almost_there">I'm Almost There</a></li>
+    <li><a href="fun_pics">Reddit Image Viewer</a></li>
+    <li><a href="video_wall">Video Wall</a>
+</ul>
+</li>
+
+<li><a href="work">Work</a></li>
+
+<li><a href="about">About</a></li>
+
+<li><a href="blog">Blog</a></li>
+
+<li><a href="contact">Contact</a></li>
+
+</ul><!-- close menu -->
+
+      {% block content %}{% endblock %}
+
+<div id="footer">
+ &copy; Copyright 2011 Joshua Seims 
+</div>
+
+</body>
+</html>

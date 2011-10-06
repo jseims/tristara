@@ -62,9 +62,10 @@ html {background: #f7f7f7; font-size: 100%}
 
 body {width: 960px; margin: auto; font-family: Georgia, "Times New Roman", Times, serif; font-size: .875em; color: #666}
 
-#header {height: 80px; background: url(../images/logo.png) no-repeat}
+#header {height: 80px;}
 
-#logo-text {float: left; margin-top: 41px; margin-left: 220px}
+#logo-img {float: left; margin-top: 0px; margin-left: 0px}
+#logo-text {float: left; margin-top: 41px;}
 
 #content {
 	width: 620px;
@@ -86,6 +87,16 @@ body {width: 960px; margin: auto; font-family: Georgia, "Times New Roman", Times
 	margin-bottom: 15px;
 	border: 1px solid #FFF;
 	outline:1px solid #dcdcdc;
+}
+
+/* useful classes for styles */
+.normal_list {
+	list-style: circle;
+}
+
+.normal_list li {
+    margin-left: 30px; 
+    margin-top: 10px;
 }
 
 /* sidebar menu */
@@ -115,6 +126,24 @@ body {width: 960px; margin: auto; font-family: Georgia, "Times New Roman", Times
 }
 
 /* end sidebar menu */
+
+#project {
+	border: 1px solid #dcdcdc;
+	padding: 20px;
+	margin-bottom: 44px;
+	position:static;
+}
+
+#project_img {
+    width: 150px;
+	display : inline;
+    float: left;
+}
+
+#project_text {
+}
+#project_text span {font-weight: bold; font-size: 1.7em;}
+
 
 #intro {
 	border: 1px solid #FFF; 
@@ -149,7 +178,7 @@ body {width: 960px; margin: auto; font-family: Georgia, "Times New Roman", Times
 	outline:1px solid #dcdcdc;
 }
 
-#footer {clear: both; padding: 10px; text-align: right; background: url(images/seperator.png) repeat-x top; font-size: .8em; color: #a3a3a3}
+#footer {clear: both; padding: 10px; text-align: right; background: url(../images/seperator.png) repeat-x top; font-size: .8em; color: #a3a3a3}
 
 
 
@@ -176,7 +205,6 @@ p {line-height: 1.4em; padding-bottom: 25px}
 /*------------------ gallery ------------------*/
 
 #gallery {
-	
 	display : inline;
 	padding-bottom: 18px;
 	position:static;
@@ -225,7 +253,7 @@ ul.dropdown li.hover a              { color: #666; }
 */
 ul.dropdown ul 						{ width: 220px; visibility: hidden; position: absolute; top: 100%; left: 0; background: #eaeaea;
                                       border-left: 1px solid #dbdbdb; border-right: 1px solid #dbdbdb; border-bottom: 1px solid #dbdbdb}
-ul.dropdown ul li 					{ font-weight: normal; background: url(../images/dropdown.png);  color: #000; 
+ul.dropdown ul li 					{ font-weight: normal; color: #000; 
 									  border-bottom: 1px solid #dbdbdb; float: none; }
 									  
                                     /* IE 6 & 7 Needs Inline Block */
