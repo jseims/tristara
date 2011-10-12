@@ -225,6 +225,10 @@ p {line-height: 1.4em; padding-bottom: 25px}
 #no_gallery_found {width: 798; padding: 50px; margin: auto; background: red; border: 10px solid white}
 
 
+ul.horizontal                         { position: relative; z-index:10; margin: auto;}
+									  
+ul.horizontal li                      { float: left; zoom: 1; margin-right: 45px; }
+
 
 /*-----------------------------------------------*/
 /*---------------    Dropdown    ---------------*/
