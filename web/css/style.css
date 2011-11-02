@@ -62,7 +62,9 @@ html {background: #f7f7f7; font-size: 100%}
 
 body {width: 960px; margin: auto; font-family: Georgia, "Times New Roman", Times, serif; font-size: .875em; color: #666}
 
-#header {height: 80px;}
+#header {
+	height: 80px;
+}
 
 #logo-img {float: left; margin-top: 0px; margin-left: 0px}
 #logo-text {float: left; margin-top: 41px;}
@@ -239,7 +241,7 @@ ul.horizontal li                      { float: left; zoom: 1; margin-right: 45px
 */
 
 ul.dropdown                         { position: relative; z-index:10; margin: auto; border-top: 1px solid #dbdbdb;
-	                                  border-bottom: 1px solid #dbdbdb; height:36px; background: #eaeaea; margin-bottom: 44px}
+	                     border-bottom: 1px solid #dbdbdb; height:36px; background: #eaeaea; margin-bottom: 44px; 	clear: both;}
 									  
 ul.dropdown li                      { float: left; zoom: 1;  }
 ul.dropdown a:hover		            { color: ; }

@@ -1,0 +1,16 @@
+/*
+Theme Name: tristara
+Description: Child theme for the twentyeleven theme 
+Author: Joshua Seims
+Template: twentyeleven
+*/
+
+@import url("../twentyeleven/style.css");
+
+@import url("/css/style.css");
+
+#page {
+	margin: 0em auto;
+	max-width: 1000px;
+	background: transparent;
+}

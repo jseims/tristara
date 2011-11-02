@@ -1,2 +1,13 @@
 *.pyc
 config/localsettings.py
+wordpress/wp-config.php
+!wordpress/
+
+wordpress/*
+!wordpress/wp-content/
+
+wordpress/wp-content/*
+!wordpress/wp-content/themes
+
+wordpress/wp-content/themes/*
+!wordpress/wp-content/themes/tristara
