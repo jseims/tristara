@@ -47,7 +47,10 @@
 ?>
 </head>
 
+<!--
 <body <?php body_class(); ?>>
+-->
+<body>
 <div id="page" class="hfeed">
 
 <div id="header">

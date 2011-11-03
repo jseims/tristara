@@ -14,3 +14,7 @@ Template: twentyeleven
 	max-width: 1000px;
 	background: transparent;
 }
+
+body, input, textarea {
+	line-height: 1.0;
+}
