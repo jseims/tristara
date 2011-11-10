@@ -56,7 +56,7 @@ table {
 
 
 
-html {background: #f7f7f7; font-size: 100%}
+html {background: #f7f7f7; font-size: 100%; overflow-y: scroll;}
 
 /*------------------ Site Structure ------------------*/
 
@@ -241,7 +241,7 @@ ul.horizontal li                      { float: left; zoom: 1; margin-right: 45px
 */
 
 ul.dropdown                         { pz-index:10; margin: auto; border-top: 1px solid #dbdbdb;
-	                     border-bottom: 1px solid #dbdbdb; height:36px; background: #eaeaea; margin-bottom: 44px; 	clear: both;}
+	                     border-bottom: 1px solid #dbdbdb; height:36px; background: #eaeaea; margin-bottom: 44px; clear: both;}
 									  
 ul.dropdown li                      { float: left; zoom: 1;  }
 ul.dropdown a:hover		            { color: ; }
@@ -257,7 +257,7 @@ ul.dropdown li.hover a              { color: #666; }
 /* 
 	LEVEL TWO
 */
-ul.dropdown ul 						{ width: 220px; visibility: hidden; position: absolute; top: 100%; left: 0; background: #eaeaea;
+ul.dropdown ul 						{ width: 220px; visibility: hidden; position: absolute; left: 0; background: #eaeaea;
                                       border-left: 1px solid #dbdbdb; border-right: 1px solid #dbdbdb; border-bottom: 1px solid #dbdbdb}
 ul.dropdown ul li 					{ font-weight: normal; color: #000; 
 									  border-bottom: 1px solid #dbdbdb; float: none; }

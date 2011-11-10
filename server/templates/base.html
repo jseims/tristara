@@ -22,7 +22,6 @@ $(function(){
    $("ul.dropdown li").hover(function(){
         $(this).addClass("hover");
         $('ul:first',this).css('visibility', 'visible');
-    
     }, function(){
    $(this).removeClass("hover");
    $('ul:first',this).css('visibility', 'hidden');
@@ -63,7 +62,6 @@ $("ul.dropdown li ul li:has(ul)").find("a:first").append(" &raquo; ");
 </ul><!-- close menu -->
 
       {% block content %}{% endblock %}
-
 <div id="footer">
  &copy; Copyright 2011 Joshua Seims 
 </div>
