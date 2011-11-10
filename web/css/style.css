@@ -21,9 +21,6 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 	background: transparent;
 }
 
-ol, ul {
-	list-style: none;
-}
 blockquote, q {
 	quotes: none;
 }
@@ -69,10 +66,14 @@ body {width: 960px; margin: auto; font-family: Georgia, "Times New Roman", Times
 #logo-img {float: left; margin-top: 0px; margin-left: 0px}
 #logo-text {float: left; margin-top: 41px;}
 
-#content {
+#main_content {
+	margin-top: 44px;
+	margin-bottom: 44px;
+}
+
+#left_content {
 	width: 620px;
 	float: left;
-	margin-bottom: 44px;
 }
 
 #sidebar {
@@ -80,7 +81,6 @@ body {width: 960px; margin: auto; font-family: Georgia, "Times New Roman", Times
 	padding: 20px;
 	float: right;
 	border: 1px solid #dcdcdc;
-	margin-bottom: 44px
 }
 
 #sidebar h3, .sidebar_box {
@@ -182,7 +182,24 @@ body {width: 960px; margin: auto; font-family: Georgia, "Times New Roman", Times
 
 #footer {clear: both; padding: 10px; text-align: right; background: url(../images/seperator.png) repeat-x top; font-size: .8em; color: #a3a3a3}
 
+/* blog stuff */
+.entry-content ul li {
+    margin-left: 30px; 
+    margin-top: 10px;
+}
 
+.entry-content ul {
+    margin-bottom: 20px;
+}
+
+.entry-meta {
+    margin-top: 20px;
+}
+
+.entry-content blockquote {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
 
 /*------------------ typography and images ------------------*/
 
@@ -212,6 +229,10 @@ p {line-height: 1.4em; padding-bottom: 25px}
 	position:static;
 }
 
+#gallery ul {
+	list-style: none;
+}
+
 #gallery ul li {
 	width: 283px;
 	height: 308px;
@@ -227,7 +248,7 @@ p {line-height: 1.4em; padding-bottom: 25px}
 #no_gallery_found {width: 798; padding: 50px; margin: auto; background: red; border: 10px solid white}
 
 
-ul.horizontal                         { position: relative; z-index:10; margin: auto;}
+ul.horizontal                         { position: relative; z-index:10; margin: auto; list-style: none;}
 									  
 ul.horizontal li                      { float: left; zoom: 1; margin-right: 45px; }
 
@@ -241,7 +262,7 @@ ul.horizontal li                      { float: left; zoom: 1; margin-right: 45px
 */
 
 ul.dropdown                         { pz-index:10; margin: auto; border-top: 1px solid #dbdbdb;
-	                     border-bottom: 1px solid #dbdbdb; height:36px; background: #eaeaea; margin-bottom: 44px; clear: both;}
+	                     border-bottom: 1px solid #dbdbdb; height:36px; background: #eaeaea; clear: both; list-style: none;}
 									  
 ul.dropdown li                      { float: left; zoom: 1;  }
 ul.dropdown a:hover		            { color: ; }
@@ -258,7 +279,7 @@ ul.dropdown li.hover a              { color: #666; }
 	LEVEL TWO
 */
 ul.dropdown ul 						{ width: 220px; visibility: hidden; position: absolute; left: 0; background: #eaeaea;
-                                      border-left: 1px solid #dbdbdb; border-right: 1px solid #dbdbdb; border-bottom: 1px solid #dbdbdb}
+                                      border-left: 1px solid #dbdbdb; border-right: 1px solid #dbdbdb; border-bottom: 1px solid #dbdbdb; list-style: none;}
 ul.dropdown ul li 					{ font-weight: normal; color: #000; 
 									  border-bottom: 1px solid #dbdbdb; float: none; }
 									  
