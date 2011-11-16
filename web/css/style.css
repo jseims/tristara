@@ -182,24 +182,6 @@ body {width: 960px; margin: auto; font-family: Georgia, "Times New Roman", Times
 
 #footer {clear: both; padding: 10px; text-align: right; background: url(../images/seperator.png) repeat-x top; font-size: .8em; color: #a3a3a3}
 
-/* blog stuff */
-.entry-content ul li {
-    margin-left: 30px; 
-    margin-top: 10px;
-}
-
-.entry-content ul {
-    margin-bottom: 20px;
-}
-
-.entry-meta {
-    margin-top: 20px;
-}
-
-.entry-content blockquote {
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
 
 /*------------------ typography and images ------------------*/
 

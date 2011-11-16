@@ -18,3 +18,40 @@ Template: twentyeleven
 body, input, textarea {
 	line-height: 1.0;
 }
+
+#primary {
+	float: left;
+	margin: 0 0 0 0;
+	width: 620px;
+	clear: both;	
+}
+#content {
+	margin: 0 0 0 0;
+	width: 620px;
+	float: left;	
+}
+#secondary {
+	width: 260px;
+	padding: 20px;
+	float: right;
+	border: 1px solid gainsboro;
+	margin-right: 0%;
+}
+
+.entry-content ul li {
+    margin-left: 30px; 
+    margin-top: 10px;
+}
+
+.entry-content ul {
+    margin-bottom: 20px;
+}
+
+.entry-meta {
+    margin-top: 20px;
+}
+
+.entry-content blockquote {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
