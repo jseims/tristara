@@ -4,6 +4,11 @@ import sys
 path = '/data/tristara/server'
 if path not in sys.path:
     sys.path.append(path)
+
+path = '/data/tristara/config'
+if path not in sys.path:
+    sys.path.append(path)
+    
 path = '/data/tristara'
 if path not in sys.path:
     sys.path.append(path)

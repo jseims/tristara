@@ -17,7 +17,7 @@ DJANGO_SECRET_KEY = ''
 try:
   from localsettings import *
 except:
-  print "Error reading localsettings"
+  print "Error reading localsettings 2"
 
 DATABASES = {
     'default': {
@@ -102,6 +102,8 @@ TEMPLATE_LOADERS = (
 #     'django.template.loaders.eggs.Loader',
 )
 
+CACHE_BACKEND = 'locmem://'
+
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -110,6 +112,13 @@ MIDDLEWARE_CLASSES = (
 )
 
 ROOT_URLCONF = 'server.urls'
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+	"tristara.context_processors.posts",
+    "django.core.context_processors.request",    
+	"django.core.context_processors.debug",
+	"django.contrib.messages.context_processors.messages",
+)
 
 TEMPLATE_DIRS = (
     '/data/tristara/server/templates',

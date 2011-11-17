@@ -243,10 +243,10 @@ ul.horizontal li                      { float: left; zoom: 1; margin-right: 45px
 	LEVEL ONE
 */
 
-ul.dropdown                         { pz-index:10; margin: auto; border-top: 1px solid #dbdbdb;
+ul.dropdown                         { z-index:10; margin: auto; border-top: 1px solid #dbdbdb; 
 	                     border-bottom: 1px solid #dbdbdb; height:36px; background: #eaeaea; clear: both; list-style: none;}
 									  
-ul.dropdown li                      { float: left; zoom: 1;  }
+ul.dropdown li                      { float: left; zoom: 1; z-index:10; }
 ul.dropdown a:hover		            { color: ; }
 ul.dropdown a:active                { color: ; }
 ul.dropdown li a                    { display: block; padding: 9px 20px;

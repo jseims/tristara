@@ -1,38 +1,23 @@
 
 <div id="sidebar"><!-- sidebar -->
 
-<h3>Recent</h3>
+	<h3>
+	Recent Posts 
+		<!-- AddToAny BEGIN -->
+		<a class="a2a_dd" href="http://www.addtoany.com/subscribe?linkurl=http%3A%2F%2Fwww.tristara.com%2Fblog%2F%3Ffeed%3Drss2&amp;linkname="><img src="http://static.addtoany.com/buttons/subscribe_106_16.gif" width="106" height="16" border="0" alt="Subscribe"/></a>
+		<script type="text/javascript">
+		var a2a_config = a2a_config || {};
+		a2a_config.linkurl = "http://www.tristara.com/blog/?feed=rss2";
+		</script>
+		<script type="text/javascript" src="http://static.addtoany.com/menu/feed.js"></script>
+		<!-- AddToAny END -->
+	</h3>
 
-    <div class="navcontainer">
-    <ul>
-    <li><a href="#">Lorem ipsum dolor</a></li>
-    <li><a href="#">Maecenas leo risus</a></li>
-    <li><a href="#">Donec ac felis</a></li>
-    <li><a href="#">Proin interdum</a></li>
-    <li><a href="#">Morbi dapibus erat</a></li>
-    </ul>
-    </div>
-
-<h3>Archive</h3>
-
-    <div class="navcontainer">
-    <ul>
-    <li><a href="#">February</a></li>
-    <li><a href="#">January</a></li>
-    <li><a href="#">December</a></li>
-    <li><a href="#">November</a></li>
-    <li><a href="#">October</a></li>
-    </ul>
-    </div>
-    
-<h3>Some Text</h3>
-
-<p>Proin interdum lobortis venenatis. Donec ac felis accumsan arcu ultricies consequat imperdiet non felis. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
-
-<h3>Text in a box</h3>
-
-<p class="sidebar_box">
-Donec ac felis accumsan arcu ultricies consequat imperdiet non felis. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-</p>
+	<div class="navcontainer">
+	<ul>
+	
+    {% for post in posts %}
+		<li><a href="{{post.url}}">{{post.title}}</a></li>
+	{% endfor %}
 
 </div><!-- end sidebar -->

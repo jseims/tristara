@@ -45,12 +45,23 @@
 	 */
 	wp_head();
 ?>
+<meta property="og:title" content="<?php the_title(); ?>" />
+<meta property="og:type" content="blog" />
+<meta property="og:url" content="<?php the_permalink(); ?>" />
+<meta property="og:site_name" content="Tristara" />
+<meta property="fb:app_id" content="111528055628412" />
 </head>
 
-<!--
-<body <?php body_class(); ?>>
--->
 <body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=111528055628412";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
 <div id="page" class="hfeed">
 
 <div id="header">

@@ -12,40 +12,46 @@ $current_layout = $options['theme_layout'];
 
 if ( 'content' != $current_layout ) :
 ?>
-		<div id="secondary" class="widget-area" role="complementary">
+		<div id="sidebar">
 			<?php if ( ! dynamic_sidebar( 'sidebar-1' ) ) : ?>
 
-				<aside id="archives" class="widget">
-					<h3 class="widget-title"><?php _e( 'Archives', 'twentyeleven' ); ?></h3>
-					<ul>
-						<?php wp_get_archives( array( 'type' => 'monthly' ) ); ?>
-					</ul>
-				</aside>
 
-				<aside id="meta" class="widget">
-					<h3 class="widget-title"><?php _e( 'Meta', 'twentyeleven' ); ?></h3>
-					<ul>
-						<?php wp_register(); ?>
-						<li><?php wp_loginout(); ?></li>
-						<?php wp_meta(); ?>
-					</ul>
-				</aside>
+			
+				<h3>Account </h3>
+				<div class="navcontainer">
+				<ul>
+					<?php wp_register(); ?>
+					<li><?php wp_loginout(); ?></li>
+					<?php wp_meta(); ?>
+				</ul>
+				</div>			
+
+				<h3>About Me</h3>
+					<div style="float:left; margin-bottom: 25px; margin-right: 20px;"><img src="http://www.tristara.com/images/josh-100x150.png" width=100></div>
+					<div style="line-height: 1.4em;">
+						<p>My name is Joshua Seims, and this is my blog.
+						<p>I'm a hacker, entrepreneur, angel investor.
+						
+					</div>
 				
-				<aside class="widget">
-					<h3 class="widget-title">About Me</h3>
-					<ul>
-						<li>Super cool</li>
-					</ul>
-				</aside>
-				<script src="http://platform.twitter.com/widgets.js" type="text/javascript"></script>
-   <a href="http://twitter.com/share" class="twitter-share-button"
-      data-url="<?php the_permalink(); ?>"
-      data-via="wpbeginner"
-      data-text="<?php the_title(); ?>"
-      data-related="syedbalkhi:Founder of WPBeginner"
-      data-count="vertical">Tweet</a>
-
-
+				
+				<h3>
+				Recent Posts 
+					<!-- AddToAny BEGIN -->
+					<a class="a2a_dd" href="http://www.addtoany.com/subscribe?linkurl=http%3A%2F%2Fwww.tristara.com%2Fblog%2F%3Ffeed%3Drss2&amp;linkname="><img src="http://static.addtoany.com/buttons/subscribe_106_16.gif" width="106" height="16" border="0" alt="Subscribe"/></a>
+					<script type="text/javascript">
+					var a2a_config = a2a_config || {};
+					a2a_config.linkurl = "http://www.tristara.com/blog/?feed=rss2";
+					</script>
+					<script type="text/javascript" src="http://static.addtoany.com/menu/feed.js"></script>
+					<!-- AddToAny END -->
+				</h3>
+				<div class="navcontainer">
+				<ul>
+					<?php wp_get_archives('title_li=&type=postbypost&limit=10'); ?>
+				</ul>
+				</div>			
+			
 			<?php endif; // end sidebar widget area ?>
 		</div><!-- #secondary .widget-area -->
 <?php endif; ?>
