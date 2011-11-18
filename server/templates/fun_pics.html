@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block js_includes %}
+<script src="/js/fun_pics.js"></script>
+{% endblock %}
+
+
+{% block content %}    
+<div id="left_content" style="clear:both">
+
+    <div id="reddit_title" style="font-size: 24px;"></div>
+    <div id="reddit_subreddit"></div>
+    <div id="reddit_score"></div>
+    
+</div>
+
+<div id="right_content">
+
+    <div><button id="reddit_next">NEXT</button></div>
+    
+</div>
+
+<div style="text-align:center;clear:both;">  
+<img src="" id="reddit_img">
+</div>
+
+{% endblock %}

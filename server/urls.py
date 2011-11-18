@@ -10,5 +10,8 @@ urlpatterns = patterns('',
     (r'^services$', 'tristara.views.static', {'template' : 'work.html'}),
     (r'^about$', 'tristara.views.static', {'template' : 'about.html'}),
     (r'^contact$', 'tristara.views.static', {'template' : 'contact.html'}),
+    (r'^video_wall$', 'tristara.views.static', {'template' : 'video_wall.html'}),
+    (r'^fun_pics$', 'tristara.views.static', {'template' : 'fun_pics.html'}),
+    (r'^ajax_fun_pics$', 'tristara.views.ajax_fun_pics'),
 
 )

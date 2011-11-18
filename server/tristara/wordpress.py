@@ -1,5 +1,6 @@
 from django.db import connection, transaction, IntegrityError
 from django.core.cache import cache
+import db_utils
 
 def get_recent_posts(limit = 5, timeout = 300):
     cachedPosts = cache.get('posts-' + str(limit))
@@ -14,15 +15,8 @@ def get_recent_posts(limit = 5, timeout = 300):
         
     #print sql % args
     cursor.execute(sql, args)
-    rows = cursor.fetchall()
+    rows = db_utils.dictfetchall(cursor)
 
-    posts = []
-    for row in rows:
-        post = {}
-        post['title'] = row[0]
-        post['url'] = row[1]
-        posts.append(post)
-
-    cache.set('posts-' + str(limit), posts, timeout)
+    cache.set('posts-' + str(limit), rows, timeout)
     
-    return posts
+    return rows

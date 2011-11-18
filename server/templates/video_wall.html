@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block js_includes %}
+<script>
+var clickedOnVideo = function(title, id) {
+    console.log("Clicked on video " + title + ", " + id);
+    var node = $('#vid_title');
+    if (id == null) {
+        node.html("");
+        console.log(node);
+    } else {
+        node.html("<a href='http://www.youtube.com/watch?v=" + id + "' style='text-decoration: none;' target='new'>" + title + "</a>");
+    }
+}
+</script>
+{% endblock %}
+
+
+{% block content %}    
+    <div style="text-align:center;">  
+
+      <div style="font-size: 36px; margin-bottom: 20px;">
+            Top 1000 YouTube videos of all time in a single player
+            <span style="font-size: 14px;"><br>(see <a href="">blog/sdsdsdds</a> for technical details)</span>
+      </div>    
+    
+      <div id="player" class="player">
+		<OBJECT classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" 
+					 codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0" 
+					 WIDTH="966" HEIGHT="577" id="myPlayer"> 
+					 <PARAM NAME=movie VALUE="flash/video_wall.swf?v=1"> 
+					 <PARAM NAME=quality VALUE=high> 
+					 <PARAM NAME=bgcolor VALUE=#F7F7F7> 
+					 <PARAM NAME=allowfullscreen VALUE=true> 
+					 <PARAM NAME=FlashVars VALUE="search="> 
+					 
+					<EMBED src="flash/video_wall.swf?v=1" quality=high bgcolor=#F7F7F7 allowfullscreen=true 
+						 FlashVars="search=" play="true" swliveconnect="true" 
+						 WIDTH="966" HEIGHT="577" name="myPlayer" 
+						 ALIGN="" TYPE="application/x-shockwave-flash" PLUGINSPAGE="http://www.macromedia.com/go/getflashplayer"> 
+					 </EMBED> 
+					</OBJECT>
+	  </div>
+    
+      <div id="vid_title" style="font-size: 36px;"></div>
+    
+    </div><!-- end main -->
+
+{% endblock %}
