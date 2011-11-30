@@ -16,11 +16,14 @@ def crawl_page(url_base, after):
 
 def write_link(v):
         url = v['url']
+        over_18 = 0
+        if v['over_18'] == 'true':
+            over_18 = 1
         # only store links to acutal images (vs. html pages framing images)
         if url.endswith(".jpg") or url.endswith(".png") or url.endswith(".gif"):
             db.query("""
-                INSERT IGNORE INTO reddit (domain, subreddit, id, author, score, thumbnail, permalink, url, title)
-                        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)""",
+                INSERT IGNORE INTO reddit (domain, subreddit, id, author, score, thumbnail, permalink, url, title, over_18, created)
+                        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)""",
                              (v['domain'],
                               v['subreddit'],
                               v['id'],
@@ -29,7 +32,9 @@ def write_link(v):
                               v['thumbnail'],
                               v['permalink'],
                               v['url'],
-                              v['title']))
+                              v['title'],
+                              over_18,
+                              v['created']))
         else:
             print "ignoring url " + url
     
