@@ -12,19 +12,20 @@ def update_link(permalink, sequence):
     success = 0
     
     # get info
-    url = "http://www.reddit.com%s.json" % (str(permalink))
-    print "loading %s" % (url)
+    url = "<undefined>"
     try:
+        url = "http://www.reddit.com%s.json" % (str(permalink))
+        print "loading %s" % (url)
         u = urllib2.urlopen(url)
         data = json.load(u)
         u.close()
         data = data[0]["data"]["children"][0]["data"]
         over_18 = 0
-        if data['over_18'] == 'true':
+        if data['over_18']:
             over_18 = 1
         db.query("""
-            UPDATE reddit SET score = %s, created = %s, over_18 = %s, updated = 1 WHERE sequence = %s""",
-                         (data["score"], data["created"], over_18, sequence))
+            UPDATE reddit SET score = %s, created = %s, over_18 = %s, updated = 1, num_comments = %s WHERE sequence = %s""",
+                         (data["score"], data["created"], over_18, data["num_comments"], sequence))
         success = 1
         
     except Exception, e:

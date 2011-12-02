@@ -15,8 +15,9 @@ def get_images(limit = 1000, timeout = 900):
     # now choose a random starting point
     startNum = random.randint(0, (maxNum - limit))
     
-    sql = "SELECT permalink, url, title, score, subreddit FROM reddit WHERE sequence > %s AND score > 20 LIMIT %s";
-    args = [startNum, limit]
+    sql = "SELECT permalink, url, title, score, subreddit FROM reddit WHERE sequence > %s AND score > 50 AND updated=1 LIMIT %s";
+    #args = [startNum, limit]
+    args = [0, limit]
     
     #print sql % args
     cursor.execute(sql, args)
