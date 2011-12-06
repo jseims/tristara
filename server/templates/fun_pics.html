@@ -6,22 +6,32 @@
 
 
 {% block content %}    
-<div id="left_content" style="clear:both">
+<div style="font-size: 14px; margin-bottom: 20px; background: url(../images/seperator.png) repeat-x bottom;">
+<p>Browse through popular images posted to <a href="www.reddit.com">reddit</a>.
+<br>Also, you and a friend can synchronize your viewing experiences by both going to:
 
-    <div id="reddit_title" style="font-size: 24px;"></div>
-    <div id="reddit_subreddit"></div>
-    <div id="reddit_score"></div>
+<p style="text-align: center">http://www.tristara.com/fun_pics?channel={{channel}}</p>
+
+<p>For more details, see blog post <a href="">fdsdfdfdf</a>.
+</div>    
+
+<div style="clear:both; float: left;">
+
+    <div>Subreddit: <span id="reddit_subreddit"></span></div>
+    <div id="reddit_comments"></div>
     
 </div>
 
-<div id="right_content">
+<div style="float:right; text-align: right">
 
-    <div><button id="reddit_next">NEXT</button></div>
+    <div><button id="reddit_next"><span style="font-size: 24px;">NEXT</span></button></div>
+    <div><input type="checkbox" name="nsfw" value="1" onclick="fun_pics.toggleNsfw(this)"/> NSFW</div>
     
 </div>
 
 <div style="text-align:center;clear:both;">  
-<img src="" id="reddit_img">
+    <div id="reddit_title" style="font-size: 24px; margin-bottom: 10px;"></div>
+    <img src="" id="reddit_img">
 </div>
 
 {% endblock %}
