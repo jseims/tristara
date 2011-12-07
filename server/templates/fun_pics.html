@@ -4,9 +4,17 @@
 <script src="/js/fun_pics.js"></script>
 {% endblock %}
 
+{% block js_body %}
+<div pub-key="pub-a2f76fd1-a391-4541-8119-9c0a43013712" sub-key="sub-d2127805-6c4b-11e0-83b6-9fe8de9a9929" ssl="off" origin="pubsub.pubnub.com" id="pubnub"></div>
+<script src="http://cdn.pubnub.com/pubnub-3.1.min.js"></script>
+<script language="javascript">
+    fun_pics.setChannel({{channel}});
+</script>    
+{% endblock %}
+
 
 {% block content %}    
-<div style="font-size: 14px; margin-bottom: 20px; background: url(../images/seperator.png) repeat-x bottom;">
+<div style="font-size: 14px;">
 <p>Browse through popular images posted to <a href="www.reddit.com">reddit</a>.
 <br>Also, you and a friend can synchronize your viewing experiences by both going to:
 
@@ -14,6 +22,8 @@
 
 <p>For more details, see blog post <a href="">fdsdfdfdf</a>.
 </div>    
+
+<div style="padding: 10px; border: 1px solid white; outline: 1px solid gainsboro; background-color: #eaeaea;">
 
 <div style="clear:both; float: left;">
 
@@ -24,8 +34,9 @@
 
 <div style="float:right; text-align: right">
 
-    <div><button id="reddit_next"><span style="font-size: 24px;">NEXT</span></button></div>
+    <div><button id="reddit_next" style="background-color:#333; color:#FFFFFF;"><span style="font-size: 24px;">NEXT</span></button></div>
     <div><input type="checkbox" name="nsfw" value="1" onclick="fun_pics.toggleNsfw(this)"/> NSFW</div>
+    <div id ="reddit_num_results"></div>
     
 </div>
 
@@ -34,4 +45,7 @@
     <img src="" id="reddit_img">
 </div>
 
+</div>
+
 {% endblock %}
+
