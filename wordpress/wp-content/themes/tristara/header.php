@@ -66,7 +66,7 @@
 
 <div id="header">
 <div id="logo-img"><a href="/"><img src="/images/logo.png" width="220"></a></div>
-<div id="logo-text">Cool stuff &#8898; Joshua Seims</div>
+<div id="logo-text">Musings and Tinkerings</div>
 </div>
 
 <ul class="dropdown"><!-- menu -->
@@ -81,7 +81,7 @@
 </ul>
 </li>
 
-<li><a href="/services">Services</a></li>
+<li><a href="collaborate">Collaborate</a></li>
 
 <li><a href="/about">About</a></li>
 

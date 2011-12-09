@@ -29,10 +29,15 @@ $(function(){
 $("ul.dropdown li ul li:has(ul)").find("a:first").append(" &raquo; ");
 });
 </script>
-
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Tristara" />
+<meta property="fb:app_id" content="111528055628412" />
+{% block facebook_header %}{% endblock %}
 </head>
 
 <body>
+
+{% block facebook_body %}{% endblock %}
 
 <div id="header">
 <div id="logo-img"><a href="/"><img src="images/logo.png" width="220"></a></div>
@@ -51,7 +56,7 @@ $("ul.dropdown li ul li:has(ul)").find("a:first").append(" &raquo; ");
 </ul>
 </li>
 
-<li><a href="services">Services</a></li>
+<li><a href="collaborate">Collaborate</a></li>
 
 <li><a href="about">About</a></li>
 

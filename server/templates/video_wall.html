@@ -15,34 +15,66 @@ var clickedOnVideo = function(title, id) {
 </script>
 {% endblock %}
 
+{% block facebook_header %}
+<meta property="og:title" content="Hey YouTube, implement this!" />
+<meta property="og:url" content="http://www.tristara.com/video_wall" />
+<meta property="og:image" content="http://www.tristara.com/images/flow_mode.png" />
+{% endblock %}
+
+{% block facebook_body %}
+<div id="fb-root"></div>
+
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=111528055628412";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+{% endblock %}
+
 
 {% block content %}    
-    <div style="text-align:center;">  
+    <div style="text-align:center; padding-bottom: 20px;">  
 
-      <div style="font-size: 36px; margin-bottom: 20px;">
+        <div style="font-size: 36px; margin-bottom: 20px;">
             Top 1000 YouTube videos of all time in a single player
-            <span style="font-size: 14px;"><br>(see <a href="">blog/sdsdsdds</a> for technical details)</span>
-      </div>    
+            <span style="font-size: 14px;"><br>(see <a href="blog/2011/hey-youtube-implement-this/">Hey YouTube, Implement This!</a> for technical details)</span>
+        </div>    
+
+        <div id="player" class="player">
+        <OBJECT classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" 
+                     codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0" 
+                     WIDTH="966" HEIGHT="577" id="myPlayer"> 
+                     <PARAM NAME=movie VALUE="flash/video_wall.swf?v=1"> 
+                     <PARAM NAME=quality VALUE=high> 
+                     <PARAM NAME=bgcolor VALUE=#F7F7F7> 
+                     <PARAM NAME=allowfullscreen VALUE=true> 
+                     <PARAM NAME=FlashVars VALUE="search="> 
+                     
+                    <EMBED src="flash/video_wall.swf?v=1" quality=high bgcolor=#F7F7F7 allowfullscreen=true 
+                         FlashVars="search=" play="true" swliveconnect="true" 
+                         WIDTH="966" HEIGHT="577" name="myPlayer" 
+                         ALIGN="" TYPE="application/x-shockwave-flash" PLUGINSPAGE="http://www.macromedia.com/go/getflashplayer"> 
+                     </EMBED> 
+                    </OBJECT>
+        </div>
+
+        <div id="vid_title" style="font-size: 36px; margin-bottom: 20px;"></div>
     
-      <div id="player" class="player">
-		<OBJECT classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" 
-					 codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0" 
-					 WIDTH="966" HEIGHT="577" id="myPlayer"> 
-					 <PARAM NAME=movie VALUE="flash/video_wall.swf?v=1"> 
-					 <PARAM NAME=quality VALUE=high> 
-					 <PARAM NAME=bgcolor VALUE=#F7F7F7> 
-					 <PARAM NAME=allowfullscreen VALUE=true> 
-					 <PARAM NAME=FlashVars VALUE="search="> 
-					 
-					<EMBED src="flash/video_wall.swf?v=1" quality=high bgcolor=#F7F7F7 allowfullscreen=true 
-						 FlashVars="search=" play="true" swliveconnect="true" 
-						 WIDTH="966" HEIGHT="577" name="myPlayer" 
-						 ALIGN="" TYPE="application/x-shockwave-flash" PLUGINSPAGE="http://www.macromedia.com/go/getflashplayer"> 
-					 </EMBED> 
-					</OBJECT>
-	  </div>
     
-      <div id="vid_title" style="font-size: 36px;"></div>
+        <div style="width: 120px; float: left; margin-bottom: 10px; margin-left: 200px;">
+            <a href="https://twitter.com/share" class="twitter-share-button" 
+                data-count="horizontal" 
+                data-url="http://www.tristara.com/video_wall"
+                data-text="A fun way to watch YouTube's top 1000 videos of all time."
+                data-via="jseims">Tweet</a><script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+        </div>
+                
+        <div style="width: 500px; float:left;">
+            <div class="fb-like" data-send="false" data-href="http://www.tristara.com/video_wall" data-width="450" data-show-faces="true"></div>
+        </div>
+    
     
     </div><!-- end main -->
 

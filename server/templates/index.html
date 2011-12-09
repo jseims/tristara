@@ -1,26 +1,21 @@
 {% extends "base.html" %}
 
 {% block content %}    
-<div id="gallery"><!-- gallery -->
+<div id="gallery">
 
 <ul>
   <li><img src="images/josh2.png" alt="Joshua Seims" /></li>
 </ul>
 
-</div><!-- close gallery -->
+</div>
  
  
 <div id="intro">
 <p><span>Welcome to my site</span>
 <p>My name is Joshua Seims, and I live in San Francisco.
-<!--
-<p>I'm a serial entrepreneur, and an occasional angel investor. I particularly enjoy advising early stage startups.
-<p>I love hacking and building cool products.
-<p>Trivia: I was born in Hong Kong, I own a ridiculously  large hot tub, and I know the secret obscene Latin verse in "Ten Thousand Men of Harvard."
--->
 <p>I'm a hacker, entrepreneur, and an occasional angel investor.
-<p>I love building products that tease interesting patterns out of the world.  I love creating novel user experiences.
-<p>Looking for help on your project?  Then be in touch.  I particularly enjoy advising early stage startups.
+<p>I love building products that tease interesting patterns out of the world, and creating novel user experiences.
+<p>Looking for help on your project?  Then get in touch.  I particularly enjoy advising early stage startups.
 
 </div>
 
@@ -32,12 +27,13 @@
 Here's a small sampling of some things I've done:
 
 <ul class="normal_list">
-    <li><a href="">Video Wall</a>.  Get YouTube's top 1000 videos of all time blasted into your eyeballs.</li>
-    <li><a href="">I'm Almost There</a>.  An iPhone app that shows people where you are on a map as you're running late (or, conversely, get them to show you where they are as you're waiting for them).</li>
-    <li><a href="">Reddit Image Viewer</a>.  Easily view pictures added to Reddit as a nearly infinite stream.  Also, share this stream with your friends.</li>
+    <li><a href="video_wall">Video Wall</a>.  Get YouTube's top 1000 videos of all time blasted into your eyeballs.</li>
+    <li><a href="almost_there">I'm Almost There</a>.  An iPhone app that shows people where you are on a map as you're running late (or, conversely, get them to show you where they are as you're waiting for them).</li>
+    <li><a href="fun_pics">Reddit Image Viewer</a>.  Easily view pictures added to Reddit as a nearly infinite stream.  Also, share this stream with your friends.</li>
 </ul>    
 </p>
 <p>
+
 <a href="projects"><img src="images/more.png" class="more" width="68" height="24" alt="more" /></a>
 </div>
 
@@ -45,38 +41,24 @@ Here's a small sampling of some things I've done:
 <h3>Recent Posts</h3>
 
 <ul class="normal_list">
-    <li><a href="http://www.quora.com/How-do-you-prevent-scope-creep-in-agile-projects-when-usability-testing/answer/Joshua-Seims">How do you prevent scope creep in agile projects when usability testing?</a></li>
-    <li><a href="http://www.quora.com/When-does-it-stop-being-inappropriate-to-compete-against-a-friend-with-a-startup-if-the-friend-ignores-suggestions-that-would-make-for-a-better-product/answer/Joshua-Seims">When does it stop being inappropriate to compete against a friend with a startup, if the friend ignores suggestions that would make for a better product?</a></li>
-    <li><a href="http://www.quora.com/Life-Lessons/What-are-the-most-important-things-you-should-teach-a-kid/answer/Joshua-Seims">What are the most important things you should teach a kid?</a></li>
-    <li><a href="http://www.quora.com/What-are-some-examples-of-being-raised-as-a-third-culture-kid-What-are-the-benefits-and-disadvantages/answer/Joshua-Seims">
-What are some examples of being raised as a third-culture kid? What are the benefits and disadvantages?</a></li>
-    <li><a href="http://www.quora.com/If-a-company-is-sold-for-100-million-how-much-would-the-CEO-founder-s-be-expected-to-make/answer/Joshua-Seims">If a company is sold for $100 million, how much would the CEO/founder(s) be expected to make?</a></li>
+    {% for post in posts %}
+		<li><a href="{{post.guid}}">{{post.post_title}}</a></li>
+	{% endfor %}
 </ul>    
 </p>
 <p>
-<a href="page.html"><img src="images/more.png" class="more" width="68" height="24" alt="more" /></a>
+<a href="blog"><img src="images/more.png" class="more" width="68" height="24" alt="more" /></a>
 </div>
 
 <div id="box_middle">
-<h3>Services</h3>
+<h3>Collaborate</h3>
 <p>Creating a startup is an exhilarating experience.  I know, I've done it, and I've made almost every mistake in the process.  
 
 <p>But I got enough things right to bootstrap a new business and grow it organically to over $20 million in annual revenue.
 
 <p>
-If you're passionate about an idea and willing to knock down any obstacle to make your vision a reality, then I will want you to succeed.  
-I can help with sweat, money, and experience.
-<!--
-I like getting involved with new projects, so feel free to be in touch if you need:
+I enjoy helping people who are passionate about an idea and willing to knock down any obstacle to make their vision a reality.
 
-<ul class="normal_list">
-<li><b>A Technical Co-Founder</b>.  Founding a company can be very interesting and lucrative, but it's a super big deal, so we'd have to get to know each other really well.</li>
-<li><b>An Advisor</b>.  I've bootstapped a company, and grown it organically to over $20 million in annual revenue.  I've made almost every possible mistake along the way, and would be happy to save you the same headaches.</li>
-<li><b>An Investor</b>.  I make selective investments, based on how much value I can provide beyond money.</li>
-<li><b>A Consultant</b>.  More for fun than money.  Let me know if you have a particularly interesting product you'd like built.</li>
-</ul>
-</p>
--->
 <p>
 <a href="services"><img src="images/more.png" class="more" width="68" height="24" alt="more" /></a>
 </div>

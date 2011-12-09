@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}    
+<div id="left_content" style="clear:both"><!-- content -->
+
+<h1>I'm Almost There</h1> 
+
+<p>
+This iPhone app was conceived by my brilliant friend, Lucas Ryan.  I helped him out a bit in building it.
+
+<p>
+Are you ever running late to meet someone?  It's a pain to keep calling them with updates on where you are, traffic conditions, etc.?  
+<u>I'm Almost There</u> lets you send the person you're meeting a beacon that shows where you are on a map.
+
+<p>The flow looks like:
+
+<ul class="normal_list">
+<li>Open the app, and select your friend's number.</li>
+<li>Your friend will now receive a text message with a link to a web page.</li>
+<li>That web page will show a map with your location, updated every few seconds.</li>
+</ul>
+<br><br>
+<p>Another cool thing is the app works in the reverse use case, when you're waiting for someone and want to know where they are ("Where are you" vs. "I'm almost there").  In this case, if your friend opens the message on a smart phone, his browser sends his location, which we display on a map in the app.
+
+<p>You can find <u>I'm Almost There</u> in <a href="">the app store</a>.
+
+<p>For more technical details on the creation of this app, see <a href="">this blog post</a>.
+                  
+</div><!-- end content -->
+
+{% include "sidebar.html" %}
+
+{% endblock %}
