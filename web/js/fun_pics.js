@@ -2,10 +2,13 @@ var fun_pics = fun_pics || {};
 
 var $title;
 var $subreddit;
+var $author;
 var $comments;
 var $next;
 var $num_results;
 var $img;
+var $img_target;
+var $tweet;
 
 var img_array = null;
 var cur_img = null;
@@ -17,10 +20,18 @@ var target_width = 920.0;
 var min_score = 50;
 
 var subreddit_filter = null;
+var author_filter = null;
 var over_18_filter = 0;
 
 fun_pics.setSubredditFilter = function(subreddit) {
     subreddit_filter = subreddit;
+    fun_pics.renderMetadata();
+    img_array = null;
+    fun_pics.nextImage();
+}
+
+fun_pics.setAuthorFilter = function(author) {
+    author_filter = author;
     fun_pics.renderMetadata();
     img_array = null;
     fun_pics.nextImage();
@@ -37,6 +48,9 @@ fun_pics.loadImages = function() {
     
     if (subreddit_filter != null) {
         solr_filter += " AND subreddit:" + subreddit_filter;
+    }
+    if (author_filter != null) {
+        solr_filter += " AND author:" + author_filter;
     }
 
     $.ajax({
@@ -119,6 +133,7 @@ fun_pics.displayImage = function () {
     });
     
     $title.html("<a href='http://www.reddit.com" + cur_image.permalink + "' target='new'>" + cur_image.title + "</a>");
+    $img_target.attr("href", cur_image.url)
     fun_pics.renderMetadata();    
 }
 
@@ -128,21 +143,35 @@ fun_pics.renderMetadata = function() {
     } else {
         $subreddit.html("<a href='javascript:void(0)' onClick='fun_pics.setSubredditFilter(\"" + cur_image.subreddit + "\")'>" + cur_image.subreddit + "</a>");
     }
+
+    if (author_filter != null) {
+        $author.html(cur_image.author + " <a href='javascript:void(0)' onClick='fun_pics.setAuthorFilter(null)'>(clear filter)</a>");
+    } else {
+        $author.html("<a href='javascript:void(0)' onClick='fun_pics.setAuthorFilter(\"" + cur_image.author + "\")'>" + cur_image.author + "</a>");
+    }
     
     $comments.html("<a href='http://www.reddit.com" + cur_image.permalink + "' target='new'>" + cur_image.num_comments + " comments</a>");
     if (num_results > 0) {
         $num_results.html("results: " + num_results);
     }
+    
+    // setup tweet and facebook like
+    var text = '<a href=href="https://twitter.com/share" class="twitter-share-button" id="reddit_tweet" data-count="horizontal" data-url=' + document.URL + ' data-text="' + cur_image.title + '" data-via="jseims">Tweet</a>'
+    $tweet.html(text);
+    twttr.widgets.load();
 }
     
 $(function() {
     // startup commands
     $title = $('#reddit_title');
     $subreddit = $('#reddit_subreddit');
+    $author = $('#reddit_author');
     $comments = $('#reddit_comments');
     $next = $('#reddit_next');
     $num_results = $('#reddit_num_results');
     $img = $('#reddit_img');
+    $img_target = $('#reddit_img_target');
+    $tweet = $('#reddit_tweet');
     
     $(window).bind('hashchange', function() {
         hash = window.location.hash.substring(1, window.location.hash.length);

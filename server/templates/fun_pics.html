@@ -12,7 +12,6 @@
 </script>    
 {% endblock %}
 
-
 {% block content %}    
 <div style="font-size: 14px;">
 <p>Browse through popular images posted to <a href="www.reddit.com">reddit</a>.
@@ -28,6 +27,7 @@
 <div style="clear:both; float: left;">
 
     <div>Subreddit: <span id="reddit_subreddit"></span></div>
+    <div>Author: <span id="reddit_author"></span></div>
     <div id="reddit_comments"></div>
     
 </div>
@@ -36,13 +36,23 @@
     <div style="margin-bottom: 10px;"><a href="javascript:void(0)" class="btn" id="reddit_next">NEXT</a></div>
     <div><input type="checkbox" name="nsfw" value="1" onclick="fun_pics.toggleNsfw(this)"/> NSFW</div>
     <div id ="reddit_num_results"></div>
-    
 </div>
 
-<div style="text-align:center;clear:both;">  
+<div style="text-align:center; clear:both; padding-bottom: 40px;">  
     <div id="reddit_title" style="font-size: 24px; margin-bottom: 10px;"></div>
-    <img src="" id="reddit_img">
-</div>
+    <a href="" id="reddit_img_target"><img src="" id="reddit_img"></a>
+
+    <div style="margin-top: 20px;">
+        <div style="float:left; margin-left: 370px;">
+            Tweet this photo
+        </div>
+       
+        <div style="float: left; margin-bottom: 10px; margin-left: 10px;" id="reddit_tweet"></div>
+        <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>  
+                
+    </div>
+    
+ </div>
 
 </div>
 

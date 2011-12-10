@@ -286,6 +286,12 @@ ul.dropdown li:hover > ul 			{ visibility: visible; }
 /* useful classes for other pages */
 .tan_box {padding: 10px; border: 1px solid white; outline: 1px solid gainsboro; background-color: #eaeaea;}
 
+#custom-tweet-button a {
+display: block;
+padding: 2px 5px 2px 20px;
+background: url('http://a4.twimg.com/images/favicon.ico') 1px center no-repeat;
+border: 1px solid #ccc;
+}
 
 /* buttons */
 a.btn {
