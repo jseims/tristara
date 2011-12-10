@@ -50,6 +50,17 @@
 <meta property="og:url" content="<?php the_permalink(); ?>" />
 <meta property="og:site_name" content="Tristara" />
 <meta property="fb:app_id" content="111528055628412" />
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-27612891-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
 </head>
 
 <body>
@@ -76,12 +87,12 @@
 <li><a href="/projects">Projects</a>
 <ul class="sub_menu">
     <li><a href="/video_wall">Video Wall</a>
-    <li><a href="/almost_there">I'm Almost There</a></li>
+    <li><a href="/blog/2011/i-am-almost-there/">I'm Almost There</a></li>
     <li><a href="/fun_pics">Reddit Image Viewer</a></li>
 </ul>
 </li>
 
-<li><a href="collaborate">Collaborate</a></li>
+<li><a href="/collaborate">Collaborate</a></li>
 
 <li><a href="/about">About</a></li>
 

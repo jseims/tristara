@@ -3,11 +3,9 @@
 {% block js_includes %}
 <script>
 var clickedOnVideo = function(title, id) {
-    console.log("Clicked on video " + title + ", " + id);
     var node = $('#vid_title');
     if (id == null) {
         node.html("");
-        console.log(node);
     } else {
         node.html("<a href='http://www.youtube.com/watch?v=" + id + "' style='text-decoration: none;' target='new'>" + title + "</a>");
     }

@@ -11,3 +11,10 @@
 #box_left, #box_right, #box_middle {margin-bottom: 20px;}
 
 
+a.btn {
+  background: #a6c250;
+}
+
+a.btn:hover {
+  background: #245192;
+}

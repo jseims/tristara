@@ -15,23 +15,14 @@ if ( 'content' != $current_layout ) :
 		<div id="sidebar">
 			<?php if ( ! dynamic_sidebar( 'sidebar-1' ) ) : ?>
 
-
-			
-				<h3>Account </h3>
-				<div class="navcontainer">
-				<ul>
-					<?php wp_register(); ?>
-					<li><?php wp_loginout(); ?></li>
-					<?php wp_meta(); ?>
-				</ul>
-				</div>			
-
 				<h3>About Me</h3>
 					<div style="float:left; margin-bottom: 25px; margin-right: 20px;"><img src="http://www.tristara.com/images/josh-100x150.png" width=100></div>
 					<div style="line-height: 1.4em;">
-						<p>My name is Joshua Seims, and this is my blog.
+						<p>My name is Joshua Seims, and this is my site.
 						<p>I'm a hacker, entrepreneur, angel investor.
-						
+                        
+<a href="https://twitter.com/jseims" class="twitter-follow-button" data-show-count="false" data-lang="en">Follow @jseims</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>                        
 					</div>
 				
 				

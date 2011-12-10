@@ -23,6 +23,7 @@ fun_pics.setSubredditFilter = function(subreddit) {
     subreddit_filter = subreddit;
     fun_pics.renderMetadata();
     img_array = null;
+    fun_pics.nextImage();
 }
 
 fun_pics.toggleNsfw = function(chkbox) {

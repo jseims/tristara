@@ -283,6 +283,10 @@ ul.dropdown ul li a					{ border-right: none; background: none; padding: 9px 8px
 ul.dropdown ul ul 					{ left: 100%; top: 0; z-index:300; border-top: 1px solid #dbdbdb }
 ul.dropdown li:hover > ul 			{ visibility: visible; }
 
+/* useful classes for other pages */
+.tan_box {padding: 10px; border: 1px solid white; outline: 1px solid gainsboro; background-color: #eaeaea;}
+
+
 /* buttons */
 a.btn {
   width: 250px;

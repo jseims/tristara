@@ -2,7 +2,7 @@ from django.db import connection, transaction, IntegrityError
 from django.core.cache import cache
 import db_utils
 
-def get_recent_posts(limit = 5, timeout = 300):
+def get_recent_posts(limit = 10, timeout = 300):
     cachedPosts = cache.get('posts-' + str(limit))
     if cachedPosts != None:
         return cachedPosts
