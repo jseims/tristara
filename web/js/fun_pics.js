@@ -9,15 +9,20 @@ var $num_results;
 var $img;
 var $img_target;
 var $tweet;
+var $loading;
 
 var img_array = null;
+var cur_index = 0;
 var cur_img = null;
 var num_results = 0;
 
 var channel = null;
 
 var target_width = 920.0;
-var min_score = 50;
+var all_min_score = 100;
+var subreddit_min_score = 20;
+var nsfw_min_score = 10;
+var author_min_score = 0;
 
 var subreddit_filter = null;
 var author_filter = null;
@@ -44,15 +49,26 @@ fun_pics.toggleNsfw = function(chkbox) {
 
 
 fun_pics.loadImages = function() {
-    solr_filter = "score:[" + min_score + " TO *] AND over_18:" + over_18_filter;
-    
+    var min_score = all_min_score;
+    var end_solr_filter = "";
+
     if (subreddit_filter != null) {
-        solr_filter += " AND subreddit:" + subreddit_filter;
-    }
-    if (author_filter != null) {
-        solr_filter += " AND author:" + author_filter;
+        end_solr_filter += " AND subreddit:" + subreddit_filter;
+        min_score = subreddit_min_score;
     }
 
+    if (over_18_filter == 1) {
+        min_score = nsfw_min_score;
+    }    
+    
+    if (author_filter != null) {
+        end_solr_filter += " AND author:" + author_filter;
+        min_score = author_min_score;
+    }
+
+    var solr_filter = "score:[" + min_score + " TO *] AND over_18:" + over_18_filter + end_solr_filter;
+    
+    
     $.ajax({
       url: '/solr/select/?q=' + solr_filter + '&version=2.2&start=0&rows=1000&indent=off&sort=random_1234%20desc&wt=json',
       success: function( data ) {
@@ -60,6 +76,7 @@ fun_pics.loadImages = function() {
         img_array = data.response.docs;
         num_results = data.response.numFound;
         if (img_array != null) {
+            cur_index = Math.floor(Math.random() * img_array.length);
             fun_pics.nextImage();
         }
       }
@@ -70,8 +87,13 @@ fun_pics.nextImage = function() {
     if (img_array == null) {
         fun_pics.loadImages();
     } else {
-        var index = Math.floor(Math.random() * img_array.length);
-        cur_image = img_array[index];
+        //var index = Math.floor(Math.random() * img_array.length);
+        cur_image = img_array[cur_index];
+        if (cur_index < img_array.length - 1) {
+            cur_index++;
+        } else {
+            cur_index = 0;
+        }
         window.location.hash = cur_image.sequence;
         fun_pics.displayImage();
         PUBNUB.publish({
@@ -84,7 +106,6 @@ fun_pics.nextImage = function() {
 
 
 fun_pics.loadInitialContent = function(hash) {
-    console.log("loadInitialContent called hash = " + hash);
     if(hash != "") {
         fun_pics.loadSingleImage(hash);
     } else {
@@ -125,16 +146,18 @@ fun_pics.loadSingleImage = function(id) {
 }
 
 fun_pics.displayImage = function () {
+    $loading.show();
     $img.attr('src', cur_image.url);
     $("<img/>").attr('src', $img.attr("src")).load(function() {
+        $loading.hide();
         var scale = Math.min(target_width / this.width, 1.0);
         $img.width(this.width * scale);
-        $img.height(this.height * scale);
+
+        $title.html("<a href='http://www.reddit.com" + cur_image.permalink + "' target='new'>" + cur_image.title + "</a>");
+        $img_target.attr("href", cur_image.url)
+        fun_pics.renderMetadata();    
+
     });
-    
-    $title.html("<a href='http://www.reddit.com" + cur_image.permalink + "' target='new'>" + cur_image.title + "</a>");
-    $img_target.attr("href", cur_image.url)
-    fun_pics.renderMetadata();    
 }
 
 fun_pics.renderMetadata = function() {
@@ -172,6 +195,7 @@ $(function() {
     $img = $('#reddit_img');
     $img_target = $('#reddit_img_target');
     $tweet = $('#reddit_tweet');
+    $loading = $('#reddit_loading');
     
     $(window).bind('hashchange', function() {
         hash = window.location.hash.substring(1, window.location.hash.length);

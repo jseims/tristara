@@ -293,7 +293,35 @@ background: url('http://a4.twimg.com/images/favicon.ico') 1px center no-repeat;
 border: 1px solid #ccc;
 }
 
-/* buttons */
+/* fun_pics */
+
+#reddit_loading {
+	font-family:Arial;
+	font-size:16px;
+	text-align:center;
+	z-index:100;
+	position:absolute;
+	display:none;
+	left:46%;
+    top: 450px;
+	width:120px;
+	height:120px;
+	padding:20px;
+	background:#000;
+	opacity:.8;
+	color:#FFF;
+	-webkit-border-radius:10px;
+	-moz-border-radius:10px;
+	border-radius:10px    
+}
+
+/*
+#618926 dark
+#98ba40 med
+#a6c250 light
+*/
+
+
 a.btn {
   width: 250px;
   padding: 5px 10px 5px 10px;
@@ -302,9 +330,9 @@ a.btn {
   text-decoration: none;
   color: #ffffff;
   text-shadow: -1px -1px 2px #618926;
-  background: -moz-linear-gradient(#98ba40, #a6c250 35%, #618926);
-  background: -webkit-gradient(linear,left top,left bottom,color-stop(0, #98ba40),color-stop(.35, #a6c250),color-stop(1, #618926));
-  border: 1px solid #618926;
+  background: -moz-linear-gradient(#3399dd, #1d78ca 35%, #0656b9);
+  background: -webkit-gradient(linear,left top,left bottom,color-stop(0, #3399dd),color-stop(.35, #1d78ca),color-stop(1, #0656b9));
+  border: 1px solid #0656b9;
   border-radius: 10px;
   -moz-border-radius: 20px;
   -webkit-border-radius: 10px;

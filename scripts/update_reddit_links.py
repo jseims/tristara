@@ -15,7 +15,7 @@ def update_link(permalink, sequence):
     url = "<undefined>"
     try:
         url = "http://www.reddit.com%s.json" % (str(permalink))
-        print "loading %s" % (url)
+        # print "loading %s" % (url)
         u = urllib2.urlopen(url)
         data = json.load(u)
         u.close()
@@ -36,8 +36,12 @@ def update_link(permalink, sequence):
 def main():
     links = db.query("""select permalink, sequence from reddit where updated = 0 AND unix_timestamp() - created > %s AND update_attempts < 3 LIMIT %s;""", [MIN_AGE, NUM_LINKS])
     success_count = 0
+    loop_count = 0
     for link in links:
         success_count = success_count + update_link(link["permalink"], link["sequence"])
+        loop_count += 1
+        if loop_count % 10 == 0:
+            print "update_reddit_list %s out of %s" % (loop_count, len(links))
         # sleep 2 seconds as per Reddit's crawling TOS
         time.sleep(2)
     print "successfully updated %s links out of %s" % (success_count, len(links))

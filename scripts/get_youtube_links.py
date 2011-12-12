@@ -34,7 +34,27 @@ def main():
         
     link_filename = "allvideos_links.txt"
     json_filename = "allvideos.json"
+    
+    # top viewed videos of all time
     url_base = "http://gdata.youtube.com/feeds/api/videos?orderby=viewCount&safeSearch=none&max-results=50&v=2&alt=json&start-index="
+
+    # highest rated videos of all time
+    # url_base = "http://gdata.youtube.com/feeds/api/standardfeeds/top_rated?safeSearch=none&max-results=50&v=2&alt=json&start-index="
+    
+    # most favorited
+    # url_base = "http://gdata.youtube.com/feeds/api/standardfeeds/top_favorites?safeSearch=none&max-results=50&v=2&alt=json&start-index="
+    
+    # most popular
+    # url_base = "http://gdata.youtube.com/feeds/api/standardfeeds/most_popular?safeSearch=none&max-results=50&v=2&alt=json&start-index="
+    
+    # most shared
+    # url_base = "http://gdata.youtube.com/feeds/api/standardfeeds/most_shared?safeSearch=none&max-results=50&v=2&alt=json&start-index="
+    
+    # most discussed
+    #url_base = "http://gdata.youtube.com/feeds/api/standardfeeds/most_discussed?safeSearch=none&max-results=50&v=2&alt=json&start-index="
+    
+    
+    # 
     if len(sys.argv) == 2:
         query = sys.argv[1];
         link_filename = '%s_links.txt' % (query)
