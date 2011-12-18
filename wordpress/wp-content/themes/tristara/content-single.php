@@ -12,18 +12,6 @@
 	<header class="entry-header">
 		<h1 class="entry-title"><?php the_title(); ?></h1>
 
-		<div style="width: 120px; float: left; margin-bottom: 10px;">
-			<a href="https://twitter.com/share" class="twitter-share-button" 
-				data-count="horizontal" 
-				data-url="<?php the_permalink(); ?>"
-				data-text="<?php the_title(); ?>"
-				data-via="jseims">Tweet</a><script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
-		</div>
-				
-		<div style="width: 500px; float:right;">
-			<div class="fb-like" data-send="false" data-href="<?php the_permalink(); ?>" data-width="450" data-show-faces="true"></div>
-		</div>
-
 		<?php if ( 'post' == get_post_type() ) : ?>
 		<div class="entry-meta">
 			<?php twentyeleven_posted_on(); ?>
@@ -37,7 +25,21 @@
 	</div><!-- .entry-content -->
 
 	<footer class="entry-meta">
-		<?php
+
+        <div style="width: 120px; float: left; margin-bottom: 10px;">
+            <a href="https://twitter.com/share" class="twitter-share-button" 
+                data-count="horizontal" 
+                data-url="<?php the_permalink(); ?>"
+                data-text="<?php the_title(); ?>"
+                data-via="jseims">Tweet</a><script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+        </div>
+                
+        <div style="width: 500px; float:right; margin-bottom: 10px;">
+            <div class="fb-like" data-send="false" data-href="<?php the_permalink(); ?>" data-width="450" data-show-faces="true"></div>
+        </div>
+
+        <div style="clear:both">
+    <?php
 			/* translators: used between list items, there is a space after the comma */
 			$categories_list = get_the_category_list( __( ', ', 'twentyeleven' ) );
 
@@ -62,6 +64,7 @@
 			);
 		?>
 		<?php edit_post_link( __( 'Edit', 'twentyeleven' ), '<span class="edit-link">', '</span>' ); ?>
+        </div>
 
 		<?php if ( get_the_author_meta( 'description' ) && is_multi_author() ) : // If a user has filled out their description and this is a multi-author blog, show a bio on their entries ?>
 		<div id="author-info">
@@ -78,6 +81,8 @@
 				</div><!-- #author-link	-->
 			</div><!-- #author-description -->
 		</div><!-- #entry-author-info -->
+  
 		<?php endif; ?>
+
 	</footer><!-- .entry-meta -->
 </article><!-- #post-<?php the_ID(); ?> -->
