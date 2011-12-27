@@ -21,6 +21,10 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 	background: transparent;
 }
 
+body, input, textarea {
+	line-height: normal;
+}
+
 blockquote, q {
 	quotes: none;
 }

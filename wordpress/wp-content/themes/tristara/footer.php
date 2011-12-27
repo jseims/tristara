@@ -15,9 +15,8 @@
 	<div id="footer">
 	 &copy; Copyright 2011 Joshua Seims / <a href="/blog/dmca">DMCA</a>
 	</div>
-</div><!-- #page -->
+</div> <!-- #page -->
 
 <?php wp_footer(); ?>
-
 </body>
 </html>

@@ -9,6 +9,7 @@ Template: twentyeleven
 
 @import url("/css/style.css");
 
+
 #page {
 	margin: 0em auto;
 	max-width: 1000px;
@@ -16,8 +17,9 @@ Template: twentyeleven
 }
 
 body, input, textarea {
-	line-height: 1.0;
+	line-height: normal;
 }
+
 #main {
 	margin-top: 44px;
 	padding: 0 0 0;
@@ -31,7 +33,6 @@ body, input, textarea {
 #content {
 	margin: 0 0 0 0;
 	width: 620px;
-	float: left;	
 }
 #secondary {
 	width: 260px;

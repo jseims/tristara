@@ -5,6 +5,7 @@ Video Wall
 {% endblock %}
 
 {% block js_includes %}
+<script src="/js/swfobject.js"></script>
 <script>
 var clickedOnVideo = function(title, id) {
     var node = $('#vid_title');
@@ -44,7 +45,25 @@ var clickedOnVideo = function(title, id) {
             <span style="font-size: 14px;"><br>(see <a href="blog/2011/hey-youtube-implement-this/">Hey YouTube, Implement This!</a> for technical details)</span>
         </div>    
 
+<script type="text/javascript">
+var flashvars = {};
+flashvars.search = "";
+
+var params = {};
+params.quality = "high";
+params.bgcolor = "#F7F7F7";
+params.allowfullscreen = "true";
+
+var attributes = {};
+attributes.id = "myPlayer";
+attributes.name = "myPlayer";
+
+swfobject.embedSWF("flash/video_wall.swf", "player", "966px", "577px", "9", "/flash/expressInstall.swf", flashvars, params, attributes);
+</script>        
+        
         <div id="player" class="player">
+        [You need to <a href="http://get.adobe.com/flashplayer/">install Flash</a> see this player]
+        <!--
         <OBJECT classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" 
                      codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0" 
                      WIDTH="966" HEIGHT="577" id="myPlayer"> 
@@ -60,6 +79,7 @@ var clickedOnVideo = function(title, id) {
                          ALIGN="" TYPE="application/x-shockwave-flash" PLUGINSPAGE="http://www.macromedia.com/go/getflashplayer"> 
                      </EMBED> 
                     </OBJECT>
+                    -->
         </div>
 
         <div id="vid_title" style="font-size: 36px; margin-bottom: 20px;"></div>
