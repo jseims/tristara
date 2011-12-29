@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}
+Reddit Blaster
+{% endblock %}
+
+{% block js_includes %}
+<script type="text/javascript" src="/js/jquery.lightbox_me.js"></script>
+<script src="/js/media_flow.js?1"></script>
+<script src="/js/reddit_blaster.js"></script>
+{% endblock %}
+
+{% block content %}    
+<div style="font-size: 14px;">
+<p>An example of media_flow.js applied to images from <a href="http://www.reddit.com">reddit</a>.
+
+    <div id="reddit_blaster"></div>
+
+    <!-- push footer down -->
+    <div style="padding-top: 700px;"></div>
+    
+    <div>
+        
+        <span><a href="javascript:void(0)" class="btn" id="playBtn">PAUSE</a></span>
+    
+        <span style="margin-left: 100px;">
+        
+        <!-- <input type="text" name="subreddit" id="subreddit" placeholder="Subreddit" title="Fill in a subreddit and press enter!"></span> -->
+            Subreddit:  <select id="subreddit">    
+                            <option value="all">all</option>
+                            <option value="AdviceAnimals">AdviceAnimals</option>
+                            <option value="atheism">atheism</option>
+                            <option value="aww">aww</option>
+                            <option value="battlefield3">battlefield3</option>
+                            <option value="EarthPorn">EarthPorn</option>
+                            <option value="fffffffuuuuuuuuuuuu">fffffffuuuuuuuuuuuu</option>
+                            <option value="funny">funny</option>
+                            <option value="gaming">gaming</option>
+                            <option value="gifs">gifs</option>
+                            <option value="gonewild">gonewild</option>
+                            <option value="LadyBoners">LadyBoners</option>
+                            <option value="Minecraft">Minecraft</option>
+                            <option value="mylittlepony">mylittlepony</option>
+                            <option value="nsfw">nsfw</option>
+                            <option value="pics">pics</option>
+                            <option value="randomsexiness">randomsexiness</option>
+                            <option value="reddit.com">reddit.com</option>
+                            <option value="skyrim">skyrim</option>
+                            <option value="starcraft">starcraft</option>
+                            <option value="teen_girls">teen_girls</option>
+                            <option value="tf2">tf2</option>
+                            <option value="trees">trees</option>
+                            <option value="WTF">WTF</option>
+                        </select>
+        </span>
+    
+        <span style="margin-left: 50px;"><input type="checkbox" name="nsfw" value="1" onclick="reddit_blaster.toggleNsfw(this)"/> NSFW</span>
+    
+        <span id="resultCount" style="float: right;"></span>
+    
+    </div>
+</div>
+
+<div id="bigImageInfo" class="popupDialogue" style="text-align:center;"> 
+    <div id="reddit_title" style="font-size: 24px; margin-bottom: 10px;"></div>
+    <a href="" id="reddit_img_target" target="new"><img src="" id="reddit_img"></a>
+    <div style="text-align:center"><a class="close" href="#">close</a> </div>
+</div> 
+    
+{% endblock %}
+

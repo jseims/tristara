@@ -14,5 +14,7 @@ urlpatterns = patterns('',
     (r'^html5_video$', 'tristara.views.static', {'template' : 'html5_video.html'}),
     (r'^almost_there$', 'tristara.views.static', {'template' : 'almost_there.html'}),
     (r'^fun_pics$', 'tristara.views.fun_pics'),
+    (r'^reddit_blaster$', 'tristara.views.static', {'template' : 'reddit_blaster.html'}),
+    (r'^facebook_blaster$', 'tristara.views.static', {'template' : 'facebook_blaster.html'}),
 
 )
