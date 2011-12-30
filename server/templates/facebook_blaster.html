@@ -52,60 +52,35 @@ Facebook Blaster
 
 {% block content %}    
 <div style="font-size: 14px;">
-<p>An example of media_flow.js applied to FaceBook photos.
+<p>An example of <a href="/js/media_flow.js">media_flow.js</a> applied to FaceBook photos.
 
-<p><a href="javascript:FB.login(facebook_blaster.handleLoginResponse, {scope:'user_photos,friends_photos'});return false;">Login to FaceBook</a>
-
-    <div id="facebook_blaster"></div>
-
-    <!-- push footer down -->
-    <div style="padding-top: 700px;"></div>
-    
-    <div>
-        
-        <span><a href="javascript:void(0)" class="btn" id="playBtn">PAUSE</a></span>
-    
-        <span style="margin-left: 100px;">
-        
-        <!-- <input type="text" name="subreddit" id="subreddit" placeholder="Subreddit" title="Fill in a subreddit and press enter!"></span> -->
-            Subreddit:  <select id="subreddit">    
-                            <option value="all">all</option>
-                            <option value="AdviceAnimals">AdviceAnimals</option>
-                            <option value="atheism">atheism</option>
-                            <option value="aww">aww</option>
-                            <option value="battlefield3">battlefield3</option>
-                            <option value="EarthPorn">EarthPorn</option>
-                            <option value="fffffffuuuuuuuuuuuu">fffffffuuuuuuuuuuuu</option>
-                            <option value="funny">funny</option>
-                            <option value="gaming">gaming</option>
-                            <option value="gifs">gifs</option>
-                            <option value="gonewild">gonewild</option>
-                            <option value="LadyBoners">LadyBoners</option>
-                            <option value="Minecraft">Minecraft</option>
-                            <option value="mylittlepony">mylittlepony</option>
-                            <option value="nsfw">nsfw</option>
-                            <option value="pics">pics</option>
-                            <option value="randomsexiness">randomsexiness</option>
-                            <option value="reddit.com">reddit.com</option>
-                            <option value="skyrim">skyrim</option>
-                            <option value="starcraft">starcraft</option>
-                            <option value="teen_girls">teen_girls</option>
-                            <option value="tf2">tf2</option>
-                            <option value="trees">trees</option>
-                            <option value="WTF">WTF</option>
-                        </select>
-        </span>
-    
-        <span style="margin-left: 50px;"><input type="checkbox" name="nsfw" value="1" onclick="reddit_blaster.toggleNsfw(this)"/> NSFW</span>
-    
-        <span id="resultCount" style="float: right;"></span>
-    
+    <div id="facebook_blaster" class="tan_box" style="width: 958px; height: 600px; padding: 0px; margin-bottom: 30px;">
+        <div style="margin-top: 280px; margin-left: 295px;" id="blastBtnDiv">
+            <a href="javascript:FB.login(facebook_blaster.handleLoginResponse, {scope:'user_photos,friends_photos'})" class="btn" id="blasterBtn">Blast me with FaceBook Photos!</a>
+            <div style="margin-top: 20px; margin-left: 50px;" id="loadingInfo"></div>
+        </div>
     </div>
+        
+    <div style="text-align: center; display: none;" id="playBtnDiv">
+        <a href="javascript:void(0)" class="btn" id="playBtn">PAUSE</a>
+    </div>
+    
 </div>
 
 <div id="bigImageInfo" class="popupDialogue" style="text-align:center;"> 
-    <div id="reddit_title" style="font-size: 24px; margin-bottom: 10px;"></div>
-    <a href="" id="reddit_img_target" target="new"><img src="" id="reddit_img"></a>
+    <div id="photo_title" style="font-size: 24px; margin-bottom: 10px;"></div>
+    <a href="" id="facebook_img_target" target="new"><img src="" id="facebook_img"></a>
+    <div style="text-align:left; padding-left: 200px; padding-right: 200px; margin: 20px;">
+        <div style="padding-bottom: 10px;" id="posterDiv">Posted by Jane Cha on jan d1 2007 (see photo on FaceBook)</div>
+        <div id="commentsDiv"">
+            <div style="border-bottom-width:2px; border-bottom-style:solid; border-bottom-color:#eaeaea; padding-top: 10px; padding-bottom: 10px; ">
+              jane says "wow, that's awesome"
+            </div>
+            <div style="border-bottom-width:2px; border-bottom-style:solid; border-bottom-color:#eaeaea; padding-top: 10px; padding-bottom: 10px; ">
+              jane says "wow, that's awesome wow, that's awesome wow, that's awesome wow, that's awesome wow, that's awesome wow, that's awesome wow, that's awesome wow, that's awesome wow, that's awesome"
+            </div>
+        </div>
+    </div>
     <div style="text-align:center"><a class="close" href="#">close</a> </div>
 </div> 
     

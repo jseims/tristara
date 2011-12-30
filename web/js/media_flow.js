@@ -12,6 +12,12 @@ var _cols = 0;
 var _width = 0;
 var _height = 0;
 var _padding = 10;
+var _clipWidth = 0;
+var _clipHeight = 0;
+var _clipLeft = 0;
+var _clipTop = 0;
+var _offsetLeft = 0;
+var _offsetTop = 0;
 
 var _started = false;
 var _curFrame = 0;
@@ -22,15 +28,26 @@ var _getData = function() { console.log("onGetData undefined"); }
 var _onClick = function() { console.log("onClick undefined"); }
 var _idle = function() { }
 
-media_flow.setDimensions = function(rows, cols, width, height) {
+media_flow.setDimensions = function(rows, cols, width, height, padding, clipWidth, clipHeight, offsetLeft, offsetTop) {
     _rows = rows;
     _cols = cols;
     _width = width;
     _height = height;
-}
-
-media_flow.setPadding = function(padding) {
-    _padding = padding;
+    if (padding) {
+        _padding = padding;
+    }
+    if (clipWidth) {
+        _clipWidth = clipWidth;
+    }
+    if (clipHeight) {
+        _clipHeight = clipHeight;
+    }
+    if (offsetLeft) {
+        _offsetLeft = offsetLeft;
+    }
+    if (offsetTop) {
+        _offsetTop = offsetTop;
+    }    
 }
 
 media_flow.setSpeed = function(speed) {
@@ -59,6 +76,17 @@ media_flow.start = function(parent_div) {
         $top = $('#' + parent_div);
         _frame_x = $top.offset().left;
         _frame_y = $top.offset().top;
+        
+        if (_clipWidth == 0) {
+            _clipWidth = 2 * _padding + (_cols - 1) * (_width + _padding);
+            _clipHeight = _padding + _rows * (_height + _padding);
+        }
+        
+        // need to insert absolute positioned div for clipping to work
+        var $temp = $("<div style='position: absolute; top: " + (_frame_y + _offsetTop) + "px; left: " + (_frame_x + _offsetLeft) + "px; clip: rect(" + 0 + "px, " + _clipWidth + "px, " + _clipHeight + "px, " + 0 + "px);'>");
+        $top.append($temp);
+        $top = $temp;
+        
         //console.log("x = " + _frame_x + " y = " + _frame_y);
         $div_array = new Array(_rows)
         _data_array = new Array(_rows)
@@ -67,6 +95,7 @@ media_flow.start = function(parent_div) {
             _data_array[row] = new Array(_cols);        
             for(var col = 0; col < _cols; col++) {
                 var $cell = $("<div style='position: absolute;'>");
+                //var $cell = $("<div>");
                 $top.append($cell);
                 $div_array[row][col] = $cell;
                 media_flow.positionCell($cell, row, col, 0);
@@ -82,17 +111,25 @@ media_flow.start = function(parent_div) {
 }
 
 media_flow.positionCell = function($cell, row, col, offset) {
-    var x = 2 * _padding + col * (_width + _padding) - offset + _frame_x;
-    var y = _padding + row * (_height + _padding) + _frame_y;
+    var x = 2 * _padding + col * (_width + _padding) - offset;
+    var y = _padding + row * (_height + _padding);
     $cell.css( { "left" : x + "px", "top" : y + "px" } );
 }
 
 media_flow.scrolledOff = function($cell) {
-    return _padding - ($cell.offset().left - _frame_x + _width);
+    var scroll = _padding - ($cell.offset().left - _frame_x + _width);
+    //console.log("scroll " + scroll);
+    return scroll;
 }
 
 media_flow.moveLeft = function($cell) {
-    $cell.css( { "left" : ($cell.offset().left - _speed) + "px" } );
+   // err, I don't know why but every time I set the $cell.offset.left, it would move right by the
+   // same number of pixels left that the containing div was (if containing div was also aboslutely positioned)
+   // so I substract that distance each time
+    //console.log("before " + $cell.offset().left);
+    $cell.css( { "left" : ($cell.offset().left - _speed - _frame_x - _offsetLeft) + "px" } );
+    //console.log("after " + $cell.offset().left);
+    
 }
 
 media_flow.frameStep = function() {
