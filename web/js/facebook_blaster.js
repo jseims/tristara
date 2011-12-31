@@ -10,6 +10,10 @@ var $playBtnDiv;
 var $playBtn;
 var $posterDiv;
 var $commentsDiv;
+var $friendFilter;
+var $setFriendFilterDiv;
+var $removeFriendFilterDiv;
+
 
 var my_name;
 var my_id;
@@ -17,6 +21,11 @@ var friend_list;
 var friend_chunk_size = 20;
 var last_friend_index = 0;
 var friends_loaded = 0;
+
+var friend_filter = null;
+var cur_friend_id;
+var friend_index = 0;
+var friend_map = new Array();
 
 var img_array = new Array();
 var min_photos = 100;
@@ -67,9 +76,12 @@ facebook_blaster.makeClickCallback = function(name, id) {
 }
 
 facebook_blaster.extractPhotos = function(array, name, id) { 
-    array = facebook_blaster.shuffle(array);
+    facebook_blaster.shuffle(array);
     //console.log("found " + array.length + " photos for " + name);
     $loadingInfo.text("loading photos of " + name + "...");
+    
+    var list = new Array();
+    friend_map[id] = list;
     for(var i = 0; i < array.length; i++) {
         if (img_array.length > max_photos) {
             break;
@@ -94,10 +106,17 @@ facebook_blaster.extractPhotos = function(array, name, id) {
             photo.created = array[i].created_time;
             photo.comments = array[i].comments;
             photo.author_id = id;
-            img_array.push(photo);            
+            
+            // add to global list of all photos
+            img_array.push(photo);
+            
+            // add to this friend's list
+            list.push(photo);
         }
     }
     //console.log("got photos from " + name + " now have " + img_array.length + " photos");
+    
+    // sort list from oldest to newest
     
     friends_loaded++;
     if (friends_loaded == friend_chunk_size && img_array.length <= max_photos) {
@@ -120,8 +139,20 @@ facebook_blaster.shuffle = function(o){
 };
 
 facebook_blaster.getData = function() {
-    cur_index = Math.floor(Math.random() * img_array.length);
-    var image = img_array[cur_index];
+    var image;
+    
+    if (friend_filter == null) {
+        cur_index = Math.floor(Math.random() * img_array.length);
+        image = img_array[cur_index];
+    } else {
+        var list = friend_map[cur_friend_id];
+        image = list[cur_friend_index];
+        if (cur_friend_index < list.length - 1) {
+            cur_friend_index++;
+        } else {
+            cur_friend_index = 0;
+        }
+    }
     return image;
 }
 
@@ -153,6 +184,17 @@ facebook_blaster.togglePlayPause = function() {
     }
 }
 
+// to handle date format for older browsers
+Date.fromISOString = (function(){
+  function fastDateParse(y, m, d, h, i, s, ms){
+    return new Date(y, m - 1, d, h || 0, i || 0, s || 0, ms || 0);
+  }
+
+  // result function
+  return function(isoDateString){
+    return fastDateParse.apply(null, isoDateString.split(/\D/));
+  }
+})();
 
 facebook_blaster.onClick = function(image) {
     media_flow.pause();
@@ -170,24 +212,25 @@ facebook_blaster.onClick = function(image) {
             $title.text("");
         }
         
-        //Posted by Jane Cha on jan d1 2007 (see photo on FaceBook)
-        var date = new Date(image.created);
+        // poster and date
+        var date = new Date.fromISOString(image.created);
         var poster = "Posted by <a href='http://www.facebook.com/profile.php?id=" + image.author_id + "' target='new'>" + image.name + "</a> on " + date.toDateString() + 
             "<a href='http://www.facebook.com/photo.php?fbid=" + image.id + "' target='new'> (see photo on FaceBook)</a>";
         $posterDiv.html(poster);
 
-            //<div style="border-bottom-width:2px; border-bottom-style:solid; border-bottom-color:#eaeaea; padding-top: 10px; padding-bottom: 10px; ">
-            //  jane says "wow, that's awesome"
-            //</div>
-            
+        // friend filter
+        cur_friend_id = image.author_id;
+        $friendFilter.text(facebook_blaster.friendFilterText(image.author_id, image.name));
+
+        // comments
         var comments = "";
         if (typeof image.comments != 'undefined') {
             comments = "<div style='padding-bottom: 5px;padding-top: 5px;padding-left: 10px;background-color: #C4C4C4;'>Comments:</div>";
             for(var i = 0; i < image.comments.data.length; i++) {
                 var comment_name = image.comments.data[i].from.name;
                 var comment = image.comments.data[i].message;
-                comments += "<div style='border-bottom-width:2px; border-bottom-style:solid; border-bottom-color:#eaeaea; padding-top: 10px; padding-bottom: 10px; '>" +
-                    comment_name + " says " + "\"" + comment + "\"</div>";
+                comments += "<div style='border-bottom-width:2px; border-bottom-style:solid; border-bottom-color:#eaeaea; padding-top: 10px; padding-bottom: 10px; '><em>" +
+                    comment_name + "</em> says " + "\"" + comment + "\"</div>";
             }
         }
         $commentsDiv.html(comments);
@@ -196,13 +239,32 @@ facebook_blaster.onClick = function(image) {
     });
 }
 
-facebook_blaster.subredditChange = function() {
-    var val = $subreddit.val();
-    if (val == "all") { 
-        val = null; 
+facebook_blaster.friendFilterText = function(id, name) {
+    var str;
+    if (friend_filter == null) {
+        var list = friend_map[id];
+        str = "View " + name + "'s " + list.length + " Photos";
+    } else {
+        str = "Return to All Photos";
     }
-    facebook_blaster.setSubredditFilter(val);
+    return str;
 }
+
+facebook_blaster.handleFriendFilter = function() {
+    if (friend_filter == null) {
+        friend_filter = cur_friend_id;
+        cur_friend_index = 0;
+        $setFriendFilterDiv.hide();
+        $removeFriendFilterDiv.show();
+    } else {
+        friend_filter = null;
+        $setFriendFilterDiv.show();
+        $removeFriendFilterDiv.hide();
+    }
+    media_flow.clear();
+    $lightbox.trigger('close');
+}
+
     
 $(function() {
     $title = $('#photo_title');
@@ -215,6 +277,10 @@ $(function() {
     $playBtn = $("#playBtn");
     $posterDiv = $("#posterDiv");
     $commentsDiv = $("#commentsDiv");
+    $friendFilter = $("#friendFilter");
+    $setFriendFilterDiv = $("#setFriendFilterDiv");
+    $removeFriendFilterDiv = $("#removeFriendFilterDiv");
+    
     
     $playBtn.click(facebook_blaster.togglePlayPause);
     //media_flow.setDimensions = function(rows, cols, width, height, padding, clipWidth, clipHeight, offsetLeft, offsetTop) {

@@ -17,11 +17,13 @@ var paused = false;
 
 var target_width = 900.0;
 var all_min_score = 50;
-var subreddit_min_score = 10;
 var nsfw_min_score = 2;
+var subreddit_min_score = 0;
 
 var subreddit_filter = null;
 var over_18_filter = 0;
+
+var first_time = true;
 
 reddit_blaster.setSubredditFilter = function(subreddit) {
     subreddit_filter = subreddit;
@@ -38,15 +40,15 @@ reddit_blaster.loadImages = function() {
     var min_score = all_min_score;
     var end_solr_filter = "";
 
+    if (over_18_filter == 1) {
+        min_score = nsfw_min_score;
+    }    
+    
     if (subreddit_filter != null) {
         end_solr_filter += " AND subreddit:" + subreddit_filter;
         min_score = subreddit_min_score;
     }
 
-    if (over_18_filter == 1) {
-        min_score = nsfw_min_score;
-    }    
-    
     var solr_filter = "score:[" + min_score + " TO *] AND over_18:" + over_18_filter + end_solr_filter;
     
     
@@ -57,8 +59,13 @@ reddit_blaster.loadImages = function() {
         num_results = data.response.numFound;
         $resultCount.text("results: " + num_results);
         img_array = data.response.docs;
-        cur_index = Math.floor(Math.random() * img_array.length);        
-        media_flow.start("reddit_blaster");
+        cur_index = Math.floor(Math.random() * img_array.length);
+        if (first_time) {
+            media_flow.start("reddit_blaster");
+            first_time = false;
+        } else {
+            media_flow.clear();
+        }
       }
     });
 }
@@ -136,7 +143,8 @@ $(function() {
     $playBtn.click(reddit_blaster.togglePlayPause);
     $subreddit.change(reddit_blaster.subredditChange)
     
-    media_flow.setDimensions(4, 6, 160, 160);
+    media_flow.setDimensions(4, 7, 160, 160, 10, 920, 700, 20, 10);
+
     media_flow.onGetData(reddit_blaster.getData);
     media_flow.onRender(reddit_blaster.render);
     media_flow.onClick(reddit_blaster.onClick);

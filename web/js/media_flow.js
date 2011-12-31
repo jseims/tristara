@@ -117,7 +117,7 @@ media_flow.positionCell = function($cell, row, col, offset) {
 }
 
 media_flow.scrolledOff = function($cell) {
-    var scroll = _padding - ($cell.offset().left - _frame_x + _width);
+    var scroll = _padding - ($cell.offset().left - _frame_x - _offsetLeft + _width);
     //console.log("scroll " + scroll);
     return scroll;
 }
@@ -169,6 +169,15 @@ media_flow.frameStep = function() {
             media_flow.render(row, _cols - 1);
         }
     }    
+}
+
+media_flow.clear = function() {
+    for(var row = 0; row < _rows; row++) {
+        for(var col = 0; col < _cols; col++) {
+            var $cell = $div_array[row][col];
+            $cell.text("");
+        }
+    }
 }
 
 media_flow.idle = function() {

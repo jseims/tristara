@@ -11,10 +11,10 @@
 #box_left, #box_right, #box_middle {margin-bottom: 20px;}
 
 
-a.btn {
+a.btn_old {
   background: #33baed;
 }
 
-a.btn:hover {
+a.btn_old:hover {
   background: #245192;
 }

@@ -16,7 +16,6 @@ Facebook Blaster
   window.fbAsyncInit = function() {
     FB.init({
       appId      : '111528055628412', // App ID
-      channelUrl : '//www.tristara.com/js/channel.html', // Channel File
       status     : true, // check login status
       cookie     : true, // enable cookies to allow the server to access the session
       xfbml      : true  // parse XFBML
@@ -52,17 +51,21 @@ Facebook Blaster
 
 {% block content %}    
 <div style="font-size: 14px;">
+
+
+
 <p>An example of <a href="/js/media_flow.js">media_flow.js</a> applied to FaceBook photos.
 
-    <div id="facebook_blaster" class="tan_box" style="width: 958px; height: 600px; padding: 0px; margin-bottom: 30px;">
-        <div style="margin-top: 280px; margin-left: 295px;" id="blastBtnDiv">
-            <a href="javascript:FB.login(facebook_blaster.handleLoginResponse, {scope:'user_photos,friends_photos'})" class="btn" id="blasterBtn">Blast me with FaceBook Photos!</a>
+    <div id="facebook_blaster" class="tan_box rounded" style="width: 958px; height: 600px; padding: 0px; margin-bottom: 30px;">
+        <div style="margin-top: 280px; margin-left: 373px;" id="blastBtnDiv">
+            <a href="javascript:FB.login(facebook_blaster.handleLoginResponse, {scope:'user_photos,friends_photos'})" class="btn primary large" id="blasterBtn">Start FaceBook Photo Flow</a>
             <div style="margin-top: 20px; margin-left: 50px;" id="loadingInfo"></div>
         </div>
     </div>
         
     <div style="text-align: center; display: none;" id="playBtnDiv">
-        <a href="javascript:void(0)" class="btn" id="playBtn">PAUSE</a>
+        <a href="javascript:void(0)" class="btn primary large" id="playBtn">PAUSE</a>
+        <span style="margin-left: 50px; display: none;" id="removeFriendFilterDiv"><a href="javascript:facebook_blaster.handleFriendFilter()" class="btn primary large" id="playBtn">Return to All Photos</a></span>
     </div>
     
 </div>
@@ -71,15 +74,11 @@ Facebook Blaster
     <div id="photo_title" style="font-size: 24px; margin-bottom: 10px;"></div>
     <a href="" id="facebook_img_target" target="new"><img src="" id="facebook_img"></a>
     <div style="text-align:left; padding-left: 200px; padding-right: 200px; margin: 20px;">
-        <div style="padding-bottom: 10px;" id="posterDiv">Posted by Jane Cha on jan d1 2007 (see photo on FaceBook)</div>
-        <div id="commentsDiv"">
-            <div style="border-bottom-width:2px; border-bottom-style:solid; border-bottom-color:#eaeaea; padding-top: 10px; padding-bottom: 10px; ">
-              jane says "wow, that's awesome"
-            </div>
-            <div style="border-bottom-width:2px; border-bottom-style:solid; border-bottom-color:#eaeaea; padding-top: 10px; padding-bottom: 10px; ">
-              jane says "wow, that's awesome wow, that's awesome wow, that's awesome wow, that's awesome wow, that's awesome wow, that's awesome wow, that's awesome wow, that's awesome wow, that's awesome"
-            </div>
+        <div style="padding-bottom: 10px;" id="posterDiv"></div>
+        <div style="padding-bottom: 10px; text-align: center;" id="setFriendFilterDiv">
+            <a href="javascript:facebook_blaster.handleFriendFilter()" class="btn primary large" id="friendFilter"></a>
         </div>
+        <div id="commentsDiv""></div>
     </div>
     <div style="text-align:center"><a class="close" href="#">close</a> </div>
 </div> 
