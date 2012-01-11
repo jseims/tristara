@@ -2,7 +2,6 @@ var media_flow = media_flow || {};
 
 var $top;
 var $div_array;
-var _data_array;
 var _frame_x;
 var _frame_y;
 
@@ -10,6 +9,8 @@ var _rows = 0;
 var _cols = 0;
 var _width = 0;
 var _height = 0;
+var _totalWidth = 0;
+var _compressLayout = false;
 
 var _opts;
 var _defaults = {
@@ -44,11 +45,20 @@ var _started = false;
 var _curFrame = 0;
 var _intervalId;
 
-media_flow.setDimensions = function(rows, cols, width, height, options) {
+media_flow.setGridDimensions = function(rows, cols, width, height, options) {
     _rows = rows;
     _cols = cols;
     _width = width;
     _height = height;
+    _compressLayout = false;
+    _opts = $.extend({}, _defaults, options);
+}
+
+media_flow.setLiquidDimensions = function(rows, totalWidth, height, options) {
+    _rows = rows;
+    _totalWidth = totalWidth;
+    _height = height;
+    _compressLayout = true;
     _opts = $.extend({}, _defaults, options);
 }
 
@@ -66,7 +76,11 @@ media_flow.start = function(parent_div) {
         _frame_y = $top.offset().top;
         
         if (_opts.clipWidth == 0) {
-            _opts.clipWidth = 2 * _opts.padding + (_cols - 1) * (_width + _opts.padding);
+            if (_compressLayout) {
+                _opts.clipWidth = _totalWidth;
+            } else  {
+                _opts.clipWidth = 2 * _opts.padding + (_cols - 1) * (_width + _opts.padding);
+            }
             _opts.clipHeight = _opts.padding + _rows * (_height + _opts.padding);
         }
         
@@ -89,51 +103,108 @@ media_flow.start = function(parent_div) {
         
         //console.log("x = " + _frame_x + " y = " + _frame_y);
         $div_array = new Array(_rows)
-        _data_array = new Array(_rows)
         for(var row = 0; row < _rows; row++) {
-            $div_array[row] = new Array(_cols);        
-            _data_array[row] = new Array(_cols);        
+            $div_array[row] = new Array();        
+
+/*            
             for(var col = 0; col < _cols; col++) {
             
                 media_flow.createCell(row, col, 0);
                 
-                if (col === _cols - 1) {
-                    media_flow.render(row, col);
-                }
+                media_flow.render(row, col);
             }
+            */
         }
+        
+        media_flow.clear();
         
         _intervalId = setInterval(media_flow.frameStep, 30);
     }
 }
 
-media_flow.createCell = function(row, col, offset) {
-    var $cell = $("<div style='position: absolute;'>");
-    //var $cell = $("<div>");
-    $top.append($cell);
-    $div_array[row][col] = $cell;
-    media_flow.positionCell($cell, row, col, offset);
+media_flow.clear = function() {
+    // clear out old values
+    for(var row = 0; row < _rows; row++) {
+        var rows = $div_array[row];
+        while(true) {
+            var $cell = rows.pop();
+            if ($cell == null) {
+                break;
+            }
+            $cell.remove();
+        }
+    }
+    
+    // now render new ones
+    for(var row = 0; row < _rows; row++) {
+        var rows = $div_array[row];
+        for(var col = 0; !media_flow.rowFull(row) && col < 100; col++) {
+            media_flow.render(row, 0);            
+        }
+    }        
 }
 
-media_flow.positionCell = function($cell, row, col, offset) {
-    var x = 2 * _opts.padding + col * (_width + _opts.padding) - offset;
+media_flow.rowFull = function(row) {
+    if (_compressLayout) {
+        var lastX = 0;
+        if ($div_array[row].length > 0) {
+            var $cell = $div_array[row][$div_array[row].length - 1];
+            lastX = $cell.offset().left + $cell.width();
+        }
+        return lastX > _totalWidth;
+    } else {
+        return $div_array[row].length >= _cols;
+    }
+}
+
+
+media_flow.render = function(row) {
+    var data = _opts.getData();
+    html = _opts.render(data);
+    //console.log(data);
+    //console.log("html for row " + row + " is " + html);
+    var width = _width;
+    if (_compressLayout) {
+        width = data.width;
+    }
+    var $cell = $("<div style='position: absolute; width: " + width + "px;'>" + html + "</div>");
+    $top.append($cell);
+    
+    $cell.click(media_flow.makeClickCallback(data));
+    if (_opts.onFocus != null) {
+        $cell.mouseenter(media_flow.makeFocusCallback($cell, data));
+    }
+    
+    media_flow.positionCell($cell, row);
+    $div_array[row].push($cell);
+}
+
+media_flow.positionCell = function($cell, row) {
+    var x = 0;
+    if ($div_array[row].length > 0) {
+        var $lastCell = $div_array[row][$div_array[row].length - 1];
+        x = $lastCell.offset().left + $lastCell.width();
+        //console.log("position cell, num cells " + $div_array[row].length + " last one's left " + $lastCell.offset().left + " width " + $lastCell.width());
+    }
+    x += _opts.padding;
+    
+    //var x = 2 * _opts.padding + col * (_width + _opts.padding) - offset;
     var y = _opts.padding + row * (_height + _opts.padding);
     $cell.css( { "left" : x + "px", "top" : y + "px" } );
 }
 
-media_flow.scrolledOff = function($cell) {
-    var scroll = _opts.padding - ($cell.offset().left - _frame_x - _opts.offsetLeft + _width);
+media_flow.scrolledOff = function(row) {
+    var $cell = $div_array[row][0];
+    var scroll = _opts.padding - ($cell.offset().left - _frame_x - _opts.offsetLeft + $cell.width());
     //console.log("scroll " + scroll);
-    return scroll;
+    return scroll > 0;
 }
 
 media_flow.moveLeft = function($cell) {
    // err, I don't know why but every time I set the $cell.offset.left, it would move right by the
    // same number of pixels left that the containing div was (if containing div was also aboslutely positioned)
    // so I substract that distance each time
-    //console.log("before " + $cell.offset().left);
     $cell.css( { "left" : ($cell.offset().left - _opts.speed - _frame_x - _opts.offsetLeft) + "px" } );
-    //console.log("after " + $cell.offset().left);
     
 }
 
@@ -147,41 +218,29 @@ media_flow.frameStep = function() {
 
     // move everyone left
     for(var row = 0; row < _rows; row++) {
-        for(var col = 0; col < _cols; col++) {
+        for(var col = 0; col < $div_array[row].length; col++) {
             var $cell = $div_array[row][col];
             media_flow.moveLeft($cell);
         }
     }
     
     // check if we need to throw away old thumbs, load new ones
-    var offset = media_flow.scrolledOff($div_array[0][0]);
-    //console.log("offset = " + offset);
-    if (offset > 0) {
-        for(var row = 0; row < _rows; row++) {
+    for(var row = 0; row < _rows; row++) {
+        if (media_flow.scrolledOff(row)) {
             // delete first one
             $div_array[row][0].remove();
             
             // compress div_array
-            for(var col = 0; col < _cols - 1; col++) {
-                $div_array[row][col] = $div_array[row][col + 1];
-            }
-            
+            $div_array[row].shift();        
+        }
+    
+        if (!media_flow.rowFull(row)) {
             // add a new object
-            media_flow.createCell(row, _cols - 1, offset);
-            
-            media_flow.render(row, _cols - 1);
+            media_flow.render(row);
         }
     }    
 }
 
-media_flow.clear = function() {
-    for(var row = 0; row < _rows; row++) {
-        for(var col = 0; col < _cols; col++) {
-            var $cell = $div_array[row][col];
-            $cell.text("");
-        }
-    }
-}
 
 media_flow.idle = function() {
     clearInterval(_intervalId);
@@ -200,23 +259,10 @@ media_flow.resume = function() {
     }
 }
 
-media_flow.render = function(row, col) {
-    _data_array[row][col] = _opts.getData();
-    html = _opts.render(_data_array[row][col]);
-    //console.log("html for row " + row + " col " + col + " is " + html);
-    
-    var $cell = $("<div>" + html + "</div>");
-    $div_array[row][col].append($cell);
-    $div_array[row][col].click(media_flow.makeClickCallback(_data_array[row][col]));
-    if (_opts.onFocus != null) {
-        $div_array[row][col].mouseenter(media_flow.makeFocusCallback($div_array[row][col], _data_array[row][col]));
-    }
-}
-
 media_flow.focusHandler = function(div, content) {
     if (_opts.outFocus != null) {
         for(var row = 0; row < _rows; row++) {
-            for(var col = 0; col < _cols; col++) {
+            for(var col = 0; col < $div_array[row].length; col++) {
                 if ($div_array[row][col] != div) {
                     _opts.outFocus($div_array[row][col]);
                 }
@@ -229,7 +275,7 @@ media_flow.focusHandler = function(div, content) {
 media_flow.leaveWrapper = function(event) {
     if (_opts.clearFocus != null) {
         for(var row = 0; row < _rows; row++) {
-            for(var col = 0; col < _cols; col++) {
+            for(var col = 0; col < $div_array[row].length; col++) {
                 _opts.clearFocus($div_array[row][col]);
             }
         }
