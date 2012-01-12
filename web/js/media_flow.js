@@ -31,6 +31,7 @@ var _defaults = {
     onFocus : null,
     outFocus : null,
     clearFocus : null,
+    decorateCell : null,
 };
 
 var _padding = 0;
@@ -105,15 +106,6 @@ media_flow.start = function(parent_div) {
         $div_array = new Array(_rows)
         for(var row = 0; row < _rows; row++) {
             $div_array[row] = new Array();        
-
-/*            
-            for(var col = 0; col < _cols; col++) {
-            
-                media_flow.createCell(row, col, 0);
-                
-                media_flow.render(row, col);
-            }
-            */
         }
         
         media_flow.clear();
@@ -168,6 +160,11 @@ media_flow.render = function(row) {
         width = data.width;
     }
     var $cell = $("<div style='position: absolute; width: " + width + "px;'>" + html + "</div>");
+    
+    if (_opts.decorateCell != null) {
+        _opts.decorateCell($cell, data);
+    }
+    
     $top.append($cell);
     
     $cell.click(media_flow.makeClickCallback(data));
@@ -217,13 +214,8 @@ media_flow.frameStep = function() {
     }
 
     // move everyone left
-    for(var row = 0; row < _rows; row++) {
-        for(var col = 0; col < $div_array[row].length; col++) {
-            var $cell = $div_array[row][col];
-            media_flow.moveLeft($cell);
-        }
-    }
-    
+    media_flow.map(media_flow.moveLeft);
+
     // check if we need to throw away old thumbs, load new ones
     for(var row = 0; row < _rows; row++) {
         if (media_flow.scrolledOff(row)) {
@@ -241,6 +233,16 @@ media_flow.frameStep = function() {
     }    
 }
 
+// apply a function to all cells
+media_flow.map = function(func) {
+    if (_started) {
+        for(var row = 0; row < _rows; row++) {
+            for(var col = 0; col < $div_array[row].length; col++) {
+                func($div_array[row][col]);
+            }
+        }
+    }
+}
 
 media_flow.idle = function() {
     clearInterval(_intervalId);
@@ -248,14 +250,18 @@ media_flow.idle = function() {
 }
 
 media_flow.pause = function() {
-    clearInterval(_intervalId);
-    _intervalId = -1;
+    if (_started) {
+        clearInterval(_intervalId);
+        _intervalId = -1;
+    }
 }
 
 media_flow.resume = function() {
-    _curFrame = 0;
-    if (_intervalId == -1) {
-        _intervalId = setInterval(media_flow.frameStep, 30);
+    if (_started) {
+        _curFrame = 0;
+        if (_intervalId == -1) {
+            _intervalId = setInterval(media_flow.frameStep, 30);
+        }
     }
 }
 
