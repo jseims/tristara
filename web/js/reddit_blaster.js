@@ -81,9 +81,13 @@ reddit_blaster.getData = function() {
 }
 
 reddit_blaster.render = function(image) {
-    var url = image.url;
-    url = url.substring(0, url.length - 4) + "b" + url.substring(url.length - 4);
-    return "<img src=" + url + ">";
+    if (image) {
+        var url = image.url;
+        url = url.substring(0, url.length - 4) + "b" + url.substring(url.length - 4);
+        return "<img src=" + url + ">";
+    } else {
+        return "";
+    }
 }
 
 reddit_blaster.onIdle = function() {
@@ -143,11 +147,19 @@ $(function() {
     $playBtn.click(reddit_blaster.togglePlayPause);
     $subreddit.change(reddit_blaster.subredditChange)
     
-    media_flow.setDimensions(4, 7, 160, 160, 10, 920, 700, 20, 10);
+    var opts = {
+        padding : 10,
+        speed: 3,
+        clipWidth : 920,
+        clipHeight : 700,
+        offsetLeft : 20,
+        offsetTop : 10,
+        getData : reddit_blaster.getData,
+        render : reddit_blaster.render,
+        onClick : reddit_blaster.onClick,
+        idle : reddit_blaster.onIdle,
+    };
+    media_flow.setGridDimensions(4, 7, 160, 160, opts);
 
-    media_flow.onGetData(reddit_blaster.getData);
-    media_flow.onRender(reddit_blaster.render);
-    media_flow.onClick(reddit_blaster.onClick);
-    media_flow.onIdle(reddit_blaster.onIdle);
     reddit_blaster.loadImages();
 });

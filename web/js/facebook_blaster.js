@@ -283,11 +283,18 @@ $(function() {
     
     
     $playBtn.click(facebook_blaster.togglePlayPause);
-    //media_flow.setDimensions = function(rows, cols, width, height, padding, clipWidth, clipHeight, offsetLeft, offsetTop) {
-
-    media_flow.setDimensions(3, 6, 180, 180, 10, 920, 600, 20, 10);
-    media_flow.onGetData(facebook_blaster.getData);
-    media_flow.onRender(facebook_blaster.render);
-    media_flow.onClick(facebook_blaster.onClick);
-    media_flow.onIdle(facebook_blaster.onIdle);
+    
+    var opts = {
+        padding : 10,
+        speed: 3,
+        clipWidth : 920,
+        clipHeight : 600,
+        offsetLeft : 20,
+        offsetTop : 10,
+        getData : facebook_blaster.getData,
+        render : facebook_blaster.render,
+        onClick : facebook_blaster.onClick,
+        idle : facebook_blaster.onIdle,
+    };
+    media_flow.setGridDimensions(3, 6, 180, 180, opts);    
 });

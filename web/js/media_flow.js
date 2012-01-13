@@ -26,11 +26,6 @@ var _defaults = {
     getData : function() { console.log("onGetData undefined"); },
     onClick : function() { console.log("onClick undefined"); },
     idle : function() { },
-    onEnter : null,
-    onLeave : null,
-    onFocus : null,
-    outFocus : null,
-    clearFocus : null,
     decorateCell : null,
 };
 
@@ -63,12 +58,6 @@ media_flow.setLiquidDimensions = function(rows, totalWidth, height, options) {
     _opts = $.extend({}, _defaults, options);
 }
 
-/*
-media_flow.onHover = function(hoverIn, hoverOut) {
-    _hoverIn = hoverIn;
-    _hoverOut = hoverOut;
-}*/
-
 media_flow.start = function(parent_div) {
     if (!_started) {
         _started = true;
@@ -93,14 +82,6 @@ media_flow.start = function(parent_div) {
         var $temp = $("<div style='position: absolute; left: " + (_frame_x + _opts.offsetLeft) + "px; clip: rect(" + 0 + "px, " + _opts.clipWidth + "px, " + _opts.clipHeight + "px, " + 0 + "px);'>");
         $top.append($temp);
         $top = $temp;
-        
-        // setup enter / leave handlers
-        if (_opts.onEnter) {
-            $top.mouseenter(_opts.onEnter);
-        }
-        if (_opts.onLeave) {
-            $top.mouseleave(media_flow.leaveWrapper);
-        }
         
         //console.log("x = " + _frame_x + " y = " + _frame_y);
         $div_array = new Array(_rows)
@@ -131,9 +112,9 @@ media_flow.clear = function() {
     for(var row = 0; row < _rows; row++) {
         var rows = $div_array[row];
         for(var col = 0; !media_flow.rowFull(row) && col < 100; col++) {
-            media_flow.render(row, 0);            
+            media_flow.render(row);
         }
-    }        
+    }
 }
 
 media_flow.rowFull = function(row) {
@@ -152,28 +133,28 @@ media_flow.rowFull = function(row) {
 
 media_flow.render = function(row) {
     var data = _opts.getData();
-    html = _opts.render(data);
-    //console.log(data);
-    //console.log("html for row " + row + " is " + html);
-    var width = _width;
-    if (_compressLayout) {
-        width = data.width;
+    
+    if (data != null) {
+        html = _opts.render(data);
+        //console.log(data);
+        //console.log("html for row " + row + " is " + html);
+        var width = _width;
+        if (_compressLayout) {
+            width = data.width;
+        }
+        var $cell = $("<div style='position: absolute; width: " + width + "px;'>" + html + "</div>");
+        
+        if (_opts.decorateCell != null) {
+            _opts.decorateCell($cell, data);
+        }
+        
+        $top.append($cell);
+        
+        $cell.click(media_flow.makeClickCallback(data));
+        
+        media_flow.positionCell($cell, row);
+        $div_array[row].push($cell);
     }
-    var $cell = $("<div style='position: absolute; width: " + width + "px;'>" + html + "</div>");
-    
-    if (_opts.decorateCell != null) {
-        _opts.decorateCell($cell, data);
-    }
-    
-    $top.append($cell);
-    
-    $cell.click(media_flow.makeClickCallback(data));
-    if (_opts.onFocus != null) {
-        $cell.mouseenter(media_flow.makeFocusCallback($cell, data));
-    }
-    
-    media_flow.positionCell($cell, row);
-    $div_array[row].push($cell);
 }
 
 media_flow.positionCell = function($cell, row) {
@@ -183,18 +164,23 @@ media_flow.positionCell = function($cell, row) {
         x = $lastCell.offset().left + $lastCell.width();
         //console.log("position cell, num cells " + $div_array[row].length + " last one's left " + $lastCell.offset().left + " width " + $lastCell.width());
     }
-    x += _opts.padding;
+    x += _opts.padding - _frame_x - _opts.offsetLeft;
     
     //var x = 2 * _opts.padding + col * (_width + _opts.padding) - offset;
     var y = _opts.padding + row * (_height + _opts.padding);
     $cell.css( { "left" : x + "px", "top" : y + "px" } );
+    //console.log("set x " + x + " frame_x " + _frame_x);
 }
 
 media_flow.scrolledOff = function(row) {
-    var $cell = $div_array[row][0];
-    var scroll = _opts.padding - ($cell.offset().left - _frame_x - _opts.offsetLeft + $cell.width());
-    //console.log("scroll " + scroll);
-    return scroll > 0;
+    if ($div_array[row].length > 0) {
+        var $cell = $div_array[row][0];
+        var scroll = _opts.padding - ($cell.offset().left - _frame_x - _opts.offsetLeft + $cell.width());
+        //console.log("scroll " + scroll);
+        return scroll > 0;
+    } else {
+        return false;
+    }
 }
 
 media_flow.moveLeft = function($cell) {
@@ -265,41 +251,11 @@ media_flow.resume = function() {
     }
 }
 
-media_flow.focusHandler = function(div, content) {
-    if (_opts.outFocus != null) {
-        for(var row = 0; row < _rows; row++) {
-            for(var col = 0; col < $div_array[row].length; col++) {
-                if ($div_array[row][col] != div) {
-                    _opts.outFocus($div_array[row][col]);
-                }
-            }
-        }
-    }
-    _opts.onFocus(div, content);
-}
-
-media_flow.leaveWrapper = function(event) {
-    if (_opts.clearFocus != null) {
-        for(var row = 0; row < _rows; row++) {
-            for(var col = 0; col < $div_array[row].length; col++) {
-                _opts.clearFocus($div_array[row][col]);
-            }
-        }
-    }
-    _opts.onLeave(event);
-}
-
 // hack to deal with JS scoping weirdness
 media_flow.makeClickCallback = function(data) {
     return function() { 
         _curFrame = 0;
         _opts.onClick(data); 
-    };
-}
-
-media_flow.makeFocusCallback = function(div, content) {
-    return function() { 
-        media_flow.focusHandler(div, content); 
     };
 }
 
