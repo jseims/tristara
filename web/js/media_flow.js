@@ -191,6 +191,15 @@ media_flow.moveLeft = function($cell) {
     
 }
 
+media_flow.setSpeed = function(speed) {
+    _opts.speed = speed;
+    if (speed === 0) {
+        media_flow.pause();
+    } else {
+        media_flow.resume();
+    }
+}
+
 media_flow.frameStep = function() {
     _curFrame++;
     // stop playing if no interaction for a while
@@ -198,7 +207,7 @@ media_flow.frameStep = function() {
         _opts.idle();
         return;
     }
-
+    
     // move everyone left
     media_flow.map(media_flow.moveLeft);
 
