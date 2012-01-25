@@ -193,7 +193,7 @@
                 
                 this.$top.append($cell);
                 
-                $cell.click(this.makeClickCallback.bind(this, data));
+                $cell.click(this.clickCallback.bind(this, data));
                 
                 this.positionCell($cell, row);
                 this.$div_array[row].push($cell);
@@ -280,18 +280,12 @@
         };
 
             
-        // hack to deal with JS scoping weirdness
-        this.makeClickCallback = function(data) {
-            return function() { 
-                this.curFrame = 0;
-                this.opts.onClick(data); 
-            };
+        this.clickCallback = function(data) {
+            this.curFrame = 0;
+            this.opts.onClick(data); 
         };
         
     }
-
-
-
 
     
 })(jQuery);
