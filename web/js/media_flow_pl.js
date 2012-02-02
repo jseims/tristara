@@ -6,8 +6,8 @@
                 var $this = $(this);
                 var opts = $.extend({}, $.fn.media_flow.defaults, options);
 
-                if (opts.layout === "liquid") {
-                    opts.compressLayout = true;
+                if (opts.layout === "grid") {
+                    opts.compressLayout = false;
                 }
                 
                 var state = new flowState(opts);
