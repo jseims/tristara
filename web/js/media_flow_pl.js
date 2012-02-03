@@ -1,5 +1,16 @@
 (function($) {
 
+    // really, safari?
+    if (!Function.prototype.bind) {
+        Function.prototype.bind = function (bind) {
+            var self = this;
+            return function () {
+                var args = Array.prototype.slice.call(arguments);
+                return self.apply(bind || null, args);
+            };
+        };    
+    }
+
     var methods = {
         init : function( options ) { 
             return this.each(function() {
@@ -96,23 +107,25 @@
             var $this = $(this);
             var state = $this.data("flow_state");
             
-            // clear out old values
-            for(var row = 0; row < state.opts.rows; row++) {
-                var rows = state.$div_array[row];
-                while(true) {
-                    var $cell = rows.pop();
-                    if ($cell == null) {
-                        break;
+            if (state.started) {
+                // clear out old values
+                for(var row = 0; row < state.opts.rows; row++) {
+                    var rows = state.$div_array[row];
+                    while(true) {
+                        var $cell = rows.pop();
+                        if ($cell == null) {
+                            break;
+                        }
+                        $cell.remove();
                     }
-                    $cell.remove();
                 }
-            }
-            
-            // now render new ones
-            for(var row = 0; row < state.opts.rows; row++) {
-                var rows = state.$div_array[row];
-                for(var col = 0; !state.rowFull(row) && col < 100; col++) {
-                    state.render(row);
+                
+                // now render new ones
+                for(var row = 0; row < state.opts.rows; row++) {
+                    var rows = state.$div_array[row];
+                    for(var col = 0; !state.rowFull(row) && col < 100; col++) {
+                        state.render(row);
+                    }
                 }
             }
         },
