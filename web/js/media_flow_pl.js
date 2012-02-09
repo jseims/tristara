@@ -60,8 +60,6 @@
                 }
                 
                 methods.clear.apply(this);
-                
-                state.intervalId = setInterval(state.frameStep.bind(state), 30)
             }
         },
         
@@ -69,9 +67,9 @@
             var $this = $(this);
             var state = $this.data("flow_state");
             state.opts.speed = speed;
-            if (speed === 0) {
-                methods.pause.apply(this);
-            } else {
+            // pause and resume to apply new speed to animations
+            methods.pause.apply(this);
+            if (speed > 0) {
                 methods.resume.apply(this);
             }
         },
@@ -87,8 +85,8 @@
             var $this = $(this);
             var state = $this.data("flow_state");
             if (state.started) {
-                clearInterval(state.intervalId);
-                state.intervalId = -1;
+                state.paused = true;
+                state.pauseCells();
             }
         },
 
@@ -97,9 +95,8 @@
             var state = $this.data("flow_state");
             if (state.started) {
                 state.curFrame = 0;
-                if (state.intervalId === -1) {
-                    state.intervalId = setInterval(state.frameStep.bind(state), 30)
-                }
+                state.paused = false;
+                state.animateCells();
             }
         },
         
@@ -116,6 +113,7 @@
                         if ($cell == null) {
                             break;
                         }
+                        $cell.stop();
                         $cell.remove();
                     }
                 }
@@ -159,6 +157,7 @@
         width : 0,
         totalWidth : 0,
         height: 0,
+        idleFrames : 100,
         render : function() { console.log("onRender undefined"); },
         getData : function() { console.log("onGetData undefined"); },
         onClick : function() { console.log("onClick undefined"); },
@@ -173,20 +172,8 @@
         this.opts = opts;
         this.started = false;
         this.curFrame = 0;
+        this.paused = false;
                 
-        this.rowFull = function(row) {
-            if (this.opts.compressLayout) {
-                var lastX = 0;
-                if (this.$div_array[row].length > 0) {
-                    var $cell = this.$div_array[row][this.$div_array[row].length - 1];
-                    lastX = $cell.offset().left + $cell.width();
-                }
-                return lastX > this.opts.totalWidth;
-            } else {
-                return this.$div_array[row].length >= this.opts.cols;
-            }
-        };
-        
         this.render = function(row) {
             var data = this.opts.getData();
             
@@ -210,70 +197,82 @@
                 
                 this.positionCell($cell, row);
                 this.$div_array[row].push($cell);
+                this.animateCell($cell, row);
             }
         };   
 
-
+        this.rowFull = function(row) {
+            if (this.opts.compressLayout) {
+                var lastX = 0;
+                if (this.$div_array[row].length > 0) {
+                    var $cell = this.$div_array[row][this.$div_array[row].length - 1];
+                    lastX = $cell.offset().left + $cell.width();
+                }
+                return lastX > this.opts.totalWidth;
+            } else {
+                return this.$div_array[row].length >= this.opts.cols;
+            }
+        };
+        
         this.positionCell = function($cell, row) {
             var x = 0;
             if (this.$div_array[row].length > 0) {
                 var $lastCell = this.$div_array[row][this.$div_array[row].length - 1];
                 x = $lastCell.offset().left + $lastCell.width();
-                //console.log("position cell, num cells " + $div_array[row].length + " last one's left " + $lastCell.offset().left + " width " + $lastCell.width());
+                //console.log("position cell, num cells " + this.$div_array[row].length + " last one's left " + $lastCell.offset().left + " width " + $lastCell.width());
             }
             x += this.opts.padding - this.frame_x - this.opts.offsetLeft;
             
             //var x = 2 * _opts.padding + col * (_width + _opts.padding) - offset;
             var y = this.opts.padding + row * (this.opts.height + this.opts.padding);
             $cell.css( { "left" : x + "px", "top" : y + "px" } );
-            //console.log("set x " + x + " frame_x " + _frame_x);
-        };
-
-        this.scrolledOff = function(row) {
-            if (this.$div_array[row].length > 0) {
-                var $cell = this.$div_array[row][0];
-                var scroll = this.opts.padding - ($cell.offset().left - this.frame_x - this.opts.offsetLeft + $cell.width());
-                //console.log("scroll " + scroll);
-                return scroll > 0;
-            } else {
-                return false;
-            }
-        };
-
-        this.moveLeft = function($cell) {
-           // err, I don't know why but every time I set the $cell.offset.left, it would move right by the
-           // same number of pixels left that the containing div was (if containing div was also aboslutely positioned)
-           // so I substract that distance each time
-            $cell.css( { "left" : ($cell.offset().left - this.opts.speed - this.frame_x - this.opts.offsetLeft) + "px" } );
+            //console.log("set x " + x + " frame_x " + this.frame_x);
         };
         
-        this.frameStep = function() {
+        this.animateCell = function($cell, row) {
+            //debugger;
+            //var left = $cell.offset().left + $cell.width() - this.frame_x - this.opts.offsetLeft - this.opts.padding;
+            var left = $cell.offset().left + $cell.width() - this.opts.offsetLeft - this.opts.padding;
+            var time = left * 30 / this.opts.speed;
+                
+            var animSpec = {left: "-=" + left + "px", leaveTransforms:true};
+            //console.log("left " + left);
+            var animOpt = {duration: time, 
+                           easing : "linear",
+                           complete: ((function(r) {return function() { this.animationDone(r); }}) (row)).bind(this) };
+
+           $cell.animate(animSpec, animOpt);
+        };
+        
+        this.animationDone = function(row) {
+            var $cell = this.$div_array[row].shift();
+            $cell.remove();
+            this.render(row);
+            
             this.curFrame++;
-
-            // stop playing if no interaction for a while
-            if (this.curFrame > 30 * 5 * 60) {
-                this.idle();
-                return;
+            if (this.curFrame > this.opts.idleFrames) {
+                this.paused = true;
+                this.pauseCells();
             }
-            
-            // move everyone left
-            this.map(this.moveLeft.bind(this));
-
-            // check if we need to throw away old thumbs, load new ones
+        };
+        
+        this.animateCells = function() {
             for(var row = 0; row < this.opts.rows; row++) {
-                if (this.scrolledOff(row)) {
-                    // delete first one
-                    this.$div_array[row][0].remove();
-                    
-                    // compress div_array
-                    this.$div_array[row].shift();        
+                for(var col = 0; col < this.$div_array[row].length; col++) {
+                    var $cell = this.$div_array[row][col];
+                    this.animateCell($cell, row);
                 }
-            
-                if (!this.rowFull(row)) {
-                    // add a new object
-                    this.render(row);
+            }
+        };        
+
+        this.pauseCells = function() {
+            for(var row = 0; row < this.opts.rows; row++) {
+                for(var col = 0; col < this.$div_array[row].length; col++) {
+                    var $cell = this.$div_array[row][col];
+                    $cell.clearQueue();
+                    $cell.stop();
                 }
-            }    
+            }
         };
         
         this.map = function(func) {
@@ -287,8 +286,8 @@
         };
 
         this.idle = function() {
-            clearInterval(this.intervalId);
-            this.intervalId = -1;
+            this.paused = true;
+            this.pauseCells();
             this.opts.idle();
         };
 
@@ -299,6 +298,5 @@
         };
         
     }
-
     
 })(jQuery);
