@@ -66,10 +66,11 @@
         setSpeed : function(speed) {
             var $this = $(this);
             var state = $this.data("flow_state");
+            var curPaused = state.paused && state.opts.speed != 0;
             state.opts.speed = speed;
             // pause and resume to apply new speed to animations
             methods.pause.apply(this);
-            if (speed > 0) {
+            if (speed > 0 && curPaused === false) {
                 methods.resume.apply(this);
             }
         },
@@ -194,7 +195,7 @@
                 
                 this.$top.append($cell);
                 
-                $cell.click((function(state, item) { return function () {state.curFrame = 0; state.opts.onClick(item);}}) (this, data) );
+                $cell.click((function(state, item, cell) { return function () {state.curFrame = 0; state.opts.onClick(item, cell);}}) (this, data, $cell) );
                 
                 this.positionCell($cell, row);
                 this.$div_array[row].push($cell);
