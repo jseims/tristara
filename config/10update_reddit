@@ -35,7 +35,8 @@ export PYTHONPATH=/data/tristara/config
 /data/tristara/scripts/update_reddit_links.py >> /var/log/tristara 2>&1
 
 # reindex solr
-/data/tristara/scripts/index_solr.py >> /var/log/tristara 2>&1
+# turning off solr indexing for now (3-8-12)
+#/data/tristara/scripts/index_solr.py >> /var/log/tristara 2>&1
    
 # 
 # exit your program calling onexit

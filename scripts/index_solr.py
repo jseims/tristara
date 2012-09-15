@@ -6,9 +6,9 @@ from mysolr import Solr
 
     
 def main():
-    solr = Solr('http://10.242.75.153:8983/solr/')
+    solr = Solr('http://localhost:8983/solr/')
 
-    links = db.query("""select sequence, author, subreddit, thumbnail, permalink, url, title, score, num_comments, over_18 from reddit where updated = 1 AND indexed = 0""")
+    links = db.query("""select sequence, author, subreddit, thumbnail, permalink, url, title, score, num_comments, over_18 from reddit where updated = 1 AND indexed = 0 LIMIT 50000""")
 
     if len(links) == 0:
         print "no links to index"

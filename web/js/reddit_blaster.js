@@ -26,13 +26,15 @@ var over_18_filter = 0;
 var first_time = true;
 
 reddit_blaster.setSubredditFilter = function(subreddit) {
+    if (subreddit == "all") { 
+        subreddit = null; 
+    }
     subreddit_filter = subreddit;
     reddit_blaster.loadImages();
 }
 
-reddit_blaster.toggleNsfw = function(chkbox) {
-    over_18_filter = (chkbox.checked) ? 1 : 0;
-    reddit_blaster.loadImages();
+reddit_blaster.setOver18 = function(val) {
+    over_18_filter = val;
 }
 
 
@@ -129,9 +131,6 @@ reddit_blaster.onClick = function(image) {
 
 reddit_blaster.subredditChange = function() {
     var val = $subreddit.val();
-    if (val == "all") { 
-        val = null; 
-    }
     reddit_blaster.setSubredditFilter(val);
 }
     
