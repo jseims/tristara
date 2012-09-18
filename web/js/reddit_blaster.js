@@ -1,5 +1,6 @@
 var reddit_blaster = reddit_blaster || {};
 
+var $reddit_blaster;
 var $title;
 var $img;
 var $img_target;
@@ -63,10 +64,10 @@ reddit_blaster.loadImages = function() {
         img_array = data.response.docs;
         cur_index = Math.floor(Math.random() * img_array.length);
         if (first_time) {
-            media_flow.start("reddit_blaster");
+            $reddit_blaster.media_flow('start');
             first_time = false;
         } else {
-            media_flow.clear();
+            $reddit_blaster.media_flow('clear');
         }
       }
     });
@@ -99,17 +100,17 @@ reddit_blaster.onIdle = function() {
 
 reddit_blaster.onClose = function() {
     if (!paused) {
-        media_flow.resume();
+        $reddit_blaster.media_flow('resume');
     }
 }
 
 reddit_blaster.togglePlayPause = function() {
     if (paused) {
-        media_flow.resume();
+        $reddit_blaster.media_flow('resume');
         $playBtn.text("PAUSE");
         paused = false;
     } else {
-        media_flow.pause();
+        $reddit_blaster.media_flow('pause');
         $playBtn.text("PLAY");
         paused = true;    
     }
@@ -117,7 +118,7 @@ reddit_blaster.togglePlayPause = function() {
 
 
 reddit_blaster.onClick = function(image) {
-    media_flow.pause();
+    $reddit_blaster.media_flow('pause');
     $img.attr('src', image.url);
     $("<img/>").attr('src', $img.attr("src")).load(function() {
         var scale = Math.min(target_width / this.width, 1.0);
@@ -135,6 +136,7 @@ reddit_blaster.subredditChange = function() {
 }
     
 $(function() {
+    $reddit_blaster = $('#reddit_blaster');
     $title = $('#reddit_title');
     $img = $('#reddit_img');
     $img_target = $('#reddit_img_target');
@@ -145,20 +147,28 @@ $(function() {
     
     $playBtn.click(reddit_blaster.togglePlayPause);
     $subreddit.change(reddit_blaster.subredditChange)
-    
-    var opts = {
+
+
+    var flowOpts = {
+        layout : "grid",
         padding : 10,
+        offsetLeft : 20,
         speed: 3,
+        rows : 4,
+        cols : 7,
+        width : 160,
+        height : 160,
         clipWidth : 920,
         clipHeight : 700,
-        offsetLeft : 20,
-        offsetTop : 10,
         getData : reddit_blaster.getData,
         render : reddit_blaster.render,
         onClick : reddit_blaster.onClick,
         idle : reddit_blaster.onIdle,
-    };
-    media_flow.setGridDimensions(4, 7, 160, 160, opts);
-
+        name : "#reddit_blaster",
+        useTranslate3d : true,
+    };            
+    
+    $reddit_blaster.media_flow(flowOpts);
+    
     reddit_blaster.loadImages();
 });

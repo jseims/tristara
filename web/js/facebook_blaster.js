@@ -1,5 +1,6 @@
 var facebook_blaster = facebook_blaster || {};
 
+var $facebook_blaster;
 var $title;
 var $img;
 var $img_target;
@@ -128,7 +129,7 @@ facebook_blaster.extractPhotos = function(array, name, id) {
     if (img_array.length > min_photos) {
         $blastBtnDiv.hide();
         $playBtnDiv.show();
-        media_flow.start("facebook_blaster");    
+        $facebook_blaster.media_flow('start');
     }
 }
 
@@ -168,17 +169,17 @@ facebook_blaster.onIdle = function() {
 
 facebook_blaster.onClose = function() {
     if (!paused) {
-        media_flow.resume();
+        $facebook_blaster.media_flow('resume');
     }
 }
 
 facebook_blaster.togglePlayPause = function() {
     if (paused) {
-        media_flow.resume();
+        $facebook_blaster.media_flow('resume');
         $playBtn.text("PAUSE");
         paused = false;
     } else {
-        media_flow.pause();
+        $facebook_blaster.media_flow('pause');
         $playBtn.text("PLAY");
         paused = true;    
     }
@@ -197,7 +198,7 @@ Date.fromISOString = (function(){
 })();
 
 facebook_blaster.onClick = function(image) {
-    media_flow.pause();
+    $facebook_blaster.media_flow('pause');
 
     $img.attr('src', image.source);    
     $("<img/>").attr('src', $img.attr("src")).load(function() {
@@ -261,12 +262,13 @@ facebook_blaster.handleFriendFilter = function() {
         $setFriendFilterDiv.show();
         $removeFriendFilterDiv.hide();
     }
-    media_flow.clear();
+    $facebook_blaster.media_flow('clear');
     $lightbox.trigger('close');
 }
 
     
 $(function() {
+    $facebook_blaster = $('#facebook_blaster');
     $title = $('#photo_title');
     $img = $('#facebook_img');
     $img_target = $('#facebook_img_target');
@@ -284,17 +286,25 @@ $(function() {
     
     $playBtn.click(facebook_blaster.togglePlayPause);
     
-    var opts = {
+    var flowOpts = {
+        layout : "grid",
         padding : 10,
-        speed: 3,
-        clipWidth : 920,
-        clipHeight : 600,
         offsetLeft : 20,
         offsetTop : 10,
+        speed: 3,
+        rows : 4,
+        cols : 6,
+        width : 180,
+        height : 180,
+        clipWidth : 920,
+        clipHeight : 600,
         getData : facebook_blaster.getData,
         render : facebook_blaster.render,
         onClick : facebook_blaster.onClick,
         idle : facebook_blaster.onIdle,
-    };
-    media_flow.setGridDimensions(3, 6, 180, 180, opts);    
+        name : "#facebook_blaster",
+        useTranslate3d : true,
+    };            
+    
+    $facebook_blaster.media_flow(flowOpts);
 });

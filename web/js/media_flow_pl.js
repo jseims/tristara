@@ -46,15 +46,10 @@
                 }
                 
                 // need to insert absolute positioned div for clipping to work
-                
-                // commenting out top position as it's giving weird effects on whimsy
-                //var $temp = $("<div style='position: absolute; top: " + (_frame_y + _offsetTop) + "px; left: " + (_frame_x + _offsetLeft) + "px; clip: rect(" + 0 + "px, " + _clipWidth + "px, " + _clipHeight + "px, " + 0 + "px);'>");
-
                 var $temp = $("<div style='position: absolute; left: " + (state.frame_x + state.opts.offsetLeft) + "px; clip: rect(" + 0 + "px, " + state.opts.clipWidth + "px, " + state.opts.clipHeight + "px, " + 0 + "px);'>");
                 $this.append($temp);
                 state.$top = $temp;
                 
-                //console.log("x = " + _frame_x + " y = " + _frame_y);
                 for(var row = 0; row < state.opts.rows; row++) {
                     state.$div_array[row] = new Array();        
                 }
@@ -181,8 +176,6 @@
             
             if (data != null) {
                 html = this.opts.render(data);
-                //console.log(data);
-                //console.log("html for row " + row + " is " + html);
                 var width = this.opts.width;
                 if (this.opts.compressLayout) {
                     width = data.width;
@@ -251,8 +244,6 @@
         this.animationDone = function(row) {
             var $cell = this.$div_array[row].shift();
             $cell.remove();
-            
-            //console.log("animationDone");
             
             this.render(row);
             
