@@ -164,7 +164,6 @@ $(function() {
         render : reddit_blaster.render,
         onClick : reddit_blaster.onClick,
         idle : reddit_blaster.onIdle,
-        name : "#reddit_blaster",
         useTranslate3d : true,
     };            
     

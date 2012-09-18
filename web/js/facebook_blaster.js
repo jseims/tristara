@@ -302,7 +302,6 @@ $(function() {
         render : facebook_blaster.render,
         onClick : facebook_blaster.onClick,
         idle : facebook_blaster.onIdle,
-        name : "#facebook_blaster",
         useTranslate3d : true,
     };            
     
