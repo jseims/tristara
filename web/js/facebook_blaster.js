@@ -292,7 +292,7 @@ $(function() {
         offsetLeft : 20,
         offsetTop : 10,
         speed: 3,
-        rows : 4,
+        rows : 3,
         cols : 6,
         width : 180,
         height : 180,
