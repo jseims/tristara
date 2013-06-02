@@ -1,0 +1,87 @@
+<html>
+<body>
+<table style="border-bottom: 0px;">
+<tr>
+<td width="300px" style="border-top: 0px;"><b>Chance Bitcoin Succeeds</b></td>
+<td width="180px" style="vertical-align: middle; border-top: 0px;"><input type="range" min="0" max="100" value="10" style="width: 150px;" onchange="setSuccess(this)"></td>
+<td style="vertical-align: middle; border-top: 0px;"><span id="success_percent">10</span>%</td>
+</tr>
+</table>
+
+<strong>Assuming Bitcoin succeeds, what market share does it capture?
+</strong><br><br>
+
+<table style="border-bottom: 0px;">
+<tr>
+<td width="300px" style="border-top: 0px;"><b>Store of Value</b></td>
+<td width="180px" style="vertical-align: middle; border-top: 0px;"><input type="range" min="0" max="100" value="30" style="width: 150px;" onchange="setGold(this)"></td>
+<td style="vertical-align: middle; border-top: 0px;"><span id="gold_percent">30</span>%</td>
+</tr>
+<tr>
+<td width="300px" style="border-top: 0px;"><b>Black Market</b></td>
+<td width="180px" style="vertical-align: middle; border-top: 0px;"><input type="range" min="0" max="100" value="0" style="width: 150px;" onchange="setBM(this)"></td>
+<td style="vertical-align: middle; border-top: 0px;"><span id="bm_percent">0</span>%</td>
+</tr>
+<tr>
+<td width="300px" style="border-top: 0px;"><b>Global Currency</b></td>
+<td width="180px" style="vertical-align: middle; border-top: 0px;"><input type="range" min="0" max="100" value="0" style="width: 150px;" onchange="setMS(this)"></td>
+<td style="vertical-align: middle; border-top: 0px;"><span id="ms_percent">0</span>%</td>
+</tr>
+<tr>
+<td width="300px" style="border-top: 0px;">&nbsp;</td>
+<td width="180px" style="vertical-align: middle; border-top: 0px;"><b>Each Bitcoin is Worth</b></td>
+<td style="vertical-align: middle; border-top: 0px;"><b style='color: green;'>$<span id="btc_price">0</span></b></td>
+</tr>
+
+</table>
+<script>
+
+var btc = {'success' : 10, 'gold' : 30, 'bm' : 0, 'ms' : 0};
+
+function setSuccess(slider) {
+  var elem = document.getElementById('success_percent');
+  elem.innerHTML = slider.value;
+  btc.success = slider.value;
+  calcPrice();
+}
+
+function setGold(slider) {
+  var elem = document.getElementById('gold_percent');
+  elem.innerHTML = slider.value;
+  btc.gold = slider.value;
+  calcPrice();
+}
+
+function setBM(slider) {
+  var elem = document.getElementById('bm_percent');
+  elem.innerHTML = slider.value;
+  btc.bm = slider.value;
+  calcPrice();
+}
+
+function setMS(slider) {
+  var elem = document.getElementById('ms_percent');
+  elem.innerHTML = slider.value;
+  btc.ms = slider.value;
+  calcPrice();
+}
+
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+function calcPrice() {
+  var numCoins = 17000000;
+  var gold_val = 7650000000000 * btc.gold / 100.0;
+  var bm_val = 650000000000 * btc.bm / 100.0;
+  var ms_val = 3000000000000 * btc.ms / 100.0;
+  var price = (btc.success / 100.0) * (gold_val + bm_val + ms_val) / numCoins;
+
+  var elem = document.getElementById('btc_price');
+  elem.innerHTML = numberWithCommas(Math.floor(price));
+}
+calcPrice();
+
+</script>
+</body>
+</html>
