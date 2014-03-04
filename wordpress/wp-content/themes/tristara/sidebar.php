@@ -19,7 +19,7 @@ if ( 'content' != $current_layout ) :
 					<div style="float:left; margin-bottom: 25px; margin-right: 20px;"><img src="http://www.tristara.com/images/josh-100x150.png" width=100></div>
 					<div style="line-height: 1.4em;">
 						<p>My name is Joshua Seims, and this is my site.
-						<p>I'm a hacker, entrepreneur, angel investor.
+						<p>I'm one of the founders of <a href="https://api.trustedcoin.com/#/">TrustedCoin</a>, a Bitcoin transaction cosigning service.
                         
 <a href="https://twitter.com/jseims" class="twitter-follow-button" data-show-count="false" data-lang="en">Follow @jseims</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>                        

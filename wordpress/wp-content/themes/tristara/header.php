@@ -107,15 +107,16 @@
 
 <li><a href="/projects">Projects</a>
 <ul class="sub_menu">
-    <li><a href="/video_wall">Video Wall</a>
+    <li><a href="https://github.com/jseims/trustedcoin-web-wallet">Secure Bitcoin Wallet</a></li>
+    <li><a href="http://www.kondit.com">Kondit</a></li>
+    <li><a href="https://github.com/jseims/media_flow">media_flow.js</a></li>
+    <li><a href="http://www.whimsi.com">Whimsi</a></li>
+    <li><a href="/facebook_blaster">FaceBook Blaster</a></li>
+    <li><a href="/reddit_blaster">Reddit Blaster</a>    <li><a href="video_wall">Video Wall</a></li>
     <li><a href="/blog/im-almost-there/">I'm Almost There</a></li>
     <li><a href="/fun_pics">Reddit Image Viewer</a></li>
 </ul>
 </li>
-
-<li><a href="/collaborate">Collaborate</a></li>
-
-<li><a href="/about">About</a></li>
 
 <li><a href="/blog/">Blog</a></li>
 
